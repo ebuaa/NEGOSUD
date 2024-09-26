@@ -9,5 +9,7 @@
         public string Address { get; set; }
 
         public ICollection<Product> Products { get; set; }
+        // Ensure this navigation property is present
+        public ICollection<SupplierOrder> SupplierOrders { get; set; } // For Supplier Orders
     }
 }

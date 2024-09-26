@@ -13,5 +13,10 @@
 
         public int SupplierID { get; set; }
         public Supplier Supplier { get; set; }
+
+        public string ImageName { get; set; }
+
+        public ICollection<OrderDetail> OrderDetails { get; set; } // For Orders
+        public ICollection<SupplierOrderDetail> SupplierOrderDetails { get; set; } // For Supplier Orders
     }
 }
