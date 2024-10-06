@@ -18,11 +18,11 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
 /*Custom CSS*/
-
+/* site.css or NEGOSUD.styles.css */
 
 /*** Spinner Start ***/
 #spinner {
@@ -38,7 +38,28 @@ body {
         opacity: 1;
     }
 
-.back-to-top {
+/*** featurs Start ***/
+/*.featurs .featurs-item .featurs-icon {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+
+    .featurs .featurs-item .featurs-icon::after {
+        content: "";
+        width: 35px;
+        height: 35px;
+        background: var(--bs-secondary);
+        position: absolute;
+        bottom: -10px;
+        transform: translate(-50%);
+        transform: rotate(45deg);
+        background: var(--bs-secondary);
+    }*/
+/*** featurs End ***/
+
+
+/*.back-to-top {
     position: fixed;
     right: 30px;
     bottom: 30px;
@@ -49,7 +70,7 @@ body {
     justify-content: center;
     transition: 0.5s;
     z-index: 99;
-}
+}*/
 /*** Spinner End ***/
 
 

@@ -17,7 +17,7 @@
       <!-- Spinner Start -->
         <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
             <div class="spinner-grow text-primary" role="status"></div>
-        </div>
+        </div> 
         <!-- Spinner End -->
 
 
@@ -36,10 +36,10 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="navbarDropdown" asp-area="" asp-controller="Home" asp-action="Index" role="button" data-bs-toggle="dropdown" aria-expanded="false">Vins</a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Tous les produits</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Products" asp-action="Index">Tous les produits</a></li>
                                     <li><hr class="dropdown-divider" /></li>
-                                    @* <li ><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Type</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">New Arrivals</a></li> *@
+                                    <li ><a class="dropdown-item" asp-area="" asp-controller="Categories" asp-action="Index">Categories de Produits</a></li>
+                                    @* <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">New Arrivals</a></li> *@
                                 </ul>
                             </li>
                         </ul>
@@ -86,13 +86,17 @@
             @RenderBody()
         </main>
     </div>
-
     <footer class="border-top footer bg-dark">
         <div class="container">
             <p class="m-0 text-center text-white">Copyright &copy; 2024 - NEGOSUD -</p>
         </div>
     </footer>
-	@* <script src="~/js/custom.js"></script>
+ 
+
+    <!-- Back to Top -->
+   @*  <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a> *@
+
+    @* <script src="~/js/custom.js"></script>
 	<script src="~/js/jquery.nav.js"></script> *@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

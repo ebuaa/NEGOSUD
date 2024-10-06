@@ -3,21 +3,24 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NEGOSUD.Data;
 
 #nullable disable
 
-namespace NEGOSUD.Data.Migrations
+namespace NEGOSUD.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241006191057_InitialMigration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.3")
+                .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -86,6 +89,11 @@ namespace NEGOSUD.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -137,6 +145,10 @@ namespace NEGOSUD.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator().HasValue("IdentityUser");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -233,45 +245,14 @@ namespace NEGOSUD.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryID"));
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CategoryID");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("NEGOSUD.Models.Entities.Customer", b =>
-                {
-                    b.Property<int>("CustomerID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerID"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CustomerID");
-
-                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("NEGOSUD.Models.Entities.Order", b =>
@@ -282,15 +263,11 @@ namespace NEGOSUD.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderID"));
 
-                    b.Property<int>("CustomerID")
-                        .HasColumnType("int");
+                    b.Property<string>("CustomerID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("OrderStatus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(18,2)");
@@ -345,22 +322,16 @@ namespace NEGOSUD.Data.Migrations
                     b.Property<int>("CategoryID")
                         .HasColumnType("int");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("MinimumStock")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
+                    b.Property<decimal>("PricePerUnit")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Stock")
+                    b.Property<int>("StockQuantity")
                         .HasColumnType("int");
 
                     b.Property<int>("SupplierID")
@@ -387,15 +358,15 @@ namespace NEGOSUD.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("CompanyName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("ContactPerson")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Phone")
+                    b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -404,67 +375,11 @@ namespace NEGOSUD.Data.Migrations
                     b.ToTable("Suppliers");
                 });
 
-            modelBuilder.Entity("NEGOSUD.Models.Entities.SupplierOrder", b =>
+            modelBuilder.Entity("NEGOSUD.Models.Entities.Customer", b =>
                 {
-                    b.Property<int>("SupplierOrderID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SupplierOrderID"));
-
-                    b.Property<DateTime>("DeliveryDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("OrderStatus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SupplierID")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("TotalAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("SupplierOrderID");
-
-                    b.HasIndex("SupplierID");
-
-                    b.ToTable("SupplierOrders");
-                });
-
-            modelBuilder.Entity("NEGOSUD.Models.Entities.SupplierOrderDetail", b =>
-                {
-                    b.Property<int>("SupplierOrderDetailID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SupplierOrderDetailID"));
-
-                    b.Property<int>("ProductID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SupplierOrderID")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("UnitPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("SupplierOrderDetailID");
-
-                    b.HasIndex("ProductID");
-
-                    b.HasIndex("SupplierOrderID");
-
-                    b.ToTable("SupplierOrderDetails");
+                    b.HasDiscriminator().HasValue("Customer");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -522,9 +437,7 @@ namespace NEGOSUD.Data.Migrations
                 {
                     b.HasOne("NEGOSUD.Models.Entities.Customer", "Customer")
                         .WithMany("Orders")
-                        .HasForeignKey("CustomerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerID");
 
                     b.Navigation("Customer");
                 });
@@ -540,7 +453,7 @@ namespace NEGOSUD.Data.Migrations
                     b.HasOne("NEGOSUD.Models.Entities.Product", "Product")
                         .WithMany("OrderDetails")
                         .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Order");
@@ -559,7 +472,7 @@ namespace NEGOSUD.Data.Migrations
                     b.HasOne("NEGOSUD.Models.Entities.Supplier", "Supplier")
                         .WithMany("Products")
                         .HasForeignKey("SupplierID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
@@ -567,44 +480,9 @@ namespace NEGOSUD.Data.Migrations
                     b.Navigation("Supplier");
                 });
 
-            modelBuilder.Entity("NEGOSUD.Models.Entities.SupplierOrder", b =>
-                {
-                    b.HasOne("NEGOSUD.Models.Entities.Supplier", "Supplier")
-                        .WithMany("SupplierOrders")
-                        .HasForeignKey("SupplierID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Supplier");
-                });
-
-            modelBuilder.Entity("NEGOSUD.Models.Entities.SupplierOrderDetail", b =>
-                {
-                    b.HasOne("NEGOSUD.Models.Entities.Product", "Product")
-                        .WithMany("SupplierOrderDetails")
-                        .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("NEGOSUD.Models.Entities.SupplierOrder", "SupplierOrder")
-                        .WithMany("SupplierOrderDetails")
-                        .HasForeignKey("SupplierOrderID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-
-                    b.Navigation("SupplierOrder");
-                });
-
             modelBuilder.Entity("NEGOSUD.Models.Entities.Category", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("NEGOSUD.Models.Entities.Customer", b =>
-                {
-                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("NEGOSUD.Models.Entities.Order", b =>
@@ -615,20 +493,16 @@ namespace NEGOSUD.Data.Migrations
             modelBuilder.Entity("NEGOSUD.Models.Entities.Product", b =>
                 {
                     b.Navigation("OrderDetails");
-
-                    b.Navigation("SupplierOrderDetails");
                 });
 
             modelBuilder.Entity("NEGOSUD.Models.Entities.Supplier", b =>
                 {
                     b.Navigation("Products");
-
-                    b.Navigation("SupplierOrders");
                 });
 
-            modelBuilder.Entity("NEGOSUD.Models.Entities.SupplierOrder", b =>
+            modelBuilder.Entity("NEGOSUD.Models.Entities.Customer", b =>
                 {
-                    b.Navigation("SupplierOrderDetails");
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

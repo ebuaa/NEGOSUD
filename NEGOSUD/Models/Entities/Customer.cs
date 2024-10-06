@@ -1,13 +1,13 @@
-﻿namespace NEGOSUD.Models.Entities
-{
-    public class Customer
-    {
-        public int CustomerID { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
-        public string Address { get; set; }
+﻿using Microsoft.AspNetCore.Identity;
 
-        public ICollection<Order> Orders { get; set; }
+namespace NEGOSUD.Models.Entities
+{
+    public class Customer : IdentityUser
+    {
+        //public string Name { get; set; }
+        //public string Address { get; set; }
+
+        //Navigation property
+        public ICollection<Order>? Orders { get; set; }
     }
 }
