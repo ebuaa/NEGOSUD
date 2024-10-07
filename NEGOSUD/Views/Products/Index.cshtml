@@ -1,31 +1,30 @@
-﻿
+﻿@model IEnumerable<NEGOSUD.Models.Entities.Product>
 @{
     ViewData["Title"] = "Index";
 }
 
-
-<!-- Fruits Shop Start-->
+<!-- Boutique de Vins Start-->
 <div class="container-fluid fruite h-100">
     <div class="container mb-4">
-        <h1 class="mb-4">Products</h1>
+        <h1 class="mb-4">Produits</h1>
         <div class="row g-4">
             <div class="col-lg-12">
                 <div class="row g-4">
-                    <div class="col-xl-3">  
+                    <div class="col-xl-3">
                         <div class="input-group w-100 mx-auto d-flex">
-                            <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
+                            <input type="search" class="form-control p-3" placeholder="mots-clés" aria-describedby="search-icon-1">
                             <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
                         </div>
                     </div>
                     <div class="col-6"></div>
                     <div class="col-xl-3">
                         <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
-                            <label for="fruits">Default Sorting:</label>
-                            <select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3" form="fruitform">
-                                <option value="volvo">Nothing</option>
-                                <option value="saab">Popularity</option>
-                                <option value="opel">Organic</option>
-                                <option value="audi">Fantastic</option>
+                            <label for="tri">Tri par défaut :</label>
+                            <select id="tri" name="trilist" class="border-0 form-select-sm bg-light me-3" form="triform">
+                                <option value="rien">Rien</option>
+                                <option value="popularite">Popularité</option>
+                                <option value="biologique">Biologique</option>
+                                <option value="fantastique">Fantastique</option>
                             </select>
                         </div>
                     </div>
@@ -35,35 +34,35 @@
                         <div class="row g-4">
                             <div class="col-lg-12">
                                 <div class="mb-3">
-                                    <h4>Categories</h4>
+                                    <h4>Catégories</h4>
                                     <ul class="list-unstyled fruite-categorie">
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Apples</a>
+                                                <a href="#"><i class="fas fa-wine-bottle me-2"></i>Rouge</a>
                                                 <span>(3)</span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Oranges</a>
+                                                <a href="#"><i class="fas fa-wine-bottle me-2"></i>Blanc</a>
                                                 <span>(5)</span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Strawbery</a>
+                                                <a href="#"><i class="fas fa-wine-bottle me-2"></i>Rosé</a>
                                                 <span>(2)</span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Banana</a>
+                                                <a href="#"><i class="fas fa-wine-bottle me-2"></i>Champagne</a>
                                                 <span>(8)</span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Pumpkin</a>
+                                                <a href="#"><i class="fas fa-wine-bottle me-2"></i>Spiritueux</a>
                                                 <span>(5)</span>
                                             </div>
                                         </li>
@@ -72,33 +71,33 @@
                             </div>
                             <div class="col-lg-12">
                                 <div class="mb-3">
-                                    <h4 class="mb-2">Price</h4>
+                                    <h4 class="mb-2">Prix</h4>
                                     <input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="0" max="500" value="0" oninput="amount.value=rangeInput.value">
                                     <output id="amount" name="amount" min-velue="0" max-value="500" for="rangeInput">0</output>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="mb-3">
-                                    <h4>Additional</h4>
+                                    <h4>Options</h4>
                                     <div class="mb-2">
-                                        <input type="radio" class="me-2" id="Categories-1" name="Categories-1" value="Beverages">
-                                        <label for="Categories-1"> Organic</label>
+                                        <input type="radio" class="me-2" id="Options-1" name="Options-1" value="Biologique">
+                                        <label for="Options-1"> Biologique</label>
                                     </div>
                                     <div class="mb-2">
-                                        <input type="radio" class="me-2" id="Categories-2" name="Categories-1" value="Beverages">
-                                        <label for="Categories-2"> Fresh</label>
+                                        <input type="radio" class="me-2" id="Options-2" name="Options-1" value="Frais">
+                                        <label for="Options-2"> Frais</label>
                                     </div>
                                     <div class="mb-2">
-                                        <input type="radio" class="me-2" id="Categories-3" name="Categories-1" value="Beverages">
-                                        <label for="Categories-3"> Sales</label>
+                                        <input type="radio" class="me-2" id="Options-3" name="Options-1" value="En solde">
+                                        <label for="Options-3"> En solde</label>
                                     </div>
                                     <div class="mb-2">
-                                        <input type="radio" class="me-2" id="Categories-4" name="Categories-1" value="Beverages">
-                                        <label for="Categories-4"> Discount</label>
+                                        <input type="radio" class="me-2" id="Options-4" name="Options-1" value="Remise">
+                                        <label for="Options-4"> Remise</label>
                                     </div>
                                     <div class="mb-2">
-                                        <input type="radio" class="me-2" id="Categories-5" name="Categories-1" value="Beverages">
-                                        <label for="Categories-5"> Expired</label>
+                                        <input type="radio" class="me-2" id="Options-5" name="Options-1" value="Expiré">
+                                        <label for="Options-5"> Expiré</label>
                                     </div>
                                 </div>
                             </div>
@@ -110,24 +109,26 @@
                             @foreach (var product in Model)
                             {
                                 <div class="col-md-6 col-lg-6 col-xl-4">
-                                    <div class="rounded position-relative fruite-item card border-1">
+                                    <div class="rounded position-relative fruite-item card">
                                         <div class="fruite-img">
-                                            <img src="https://picsum.photos/300" class="img-fluid rounded-top" alt="">
+                                            <img src="https://picsum.photos/300" class="img-fluid rounded-top w-100" alt="">
                                         </div>
-                                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">@product.Category?.Name</div>
+                                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">
+                                            @Html.DisplayFor(modelItem => product.Category.Name)
+                                        </div>
                                         <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>@product.Name</h4>
+                                            <h4><a asp-action="Details" asp-route-id="@product.ProductID"> @Html.DisplayFor(modelItem => product.Name)</a></h4>
                                             <p></p>
-                                            <p>@product.StockQuantity</p>
+                                            <p>@Html.DisplayFor(modelItem => product.StockQuantity)</p>
                                             <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">@product.PricePerUnit €</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                                <p class="text-dark fs-5 fw-bold mb-0"> @Html.DisplayFor(model => product.PricePerUnit) €</p>
+                                                <a href="#" class="btn border border-primary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Ajouter au panier</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             }
-                           
+
                             <div class="col-12">
                                 <div class="pagination d-flex justify-content-center mt-5">
                                     <a href="#" class="rounded">&laquo;</a>
@@ -142,10 +143,10 @@
                             </div>
                         </div>
                     </div>
-                
+
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Fruits Shop End-->
+<!-- Boutique de Vins End-->
