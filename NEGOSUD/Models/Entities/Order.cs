@@ -1,7 +1,11 @@
 ﻿namespace NEGOSUD.Models.Entities
 {
-    public class Order
+    public class Order //Domain Model => Communicates with the database only
     {
+        public Order()
+        {
+            OrderDetails = new List<OrderDetail>();
+        }
         public int OrderID { get; set; }
         public DateTime OrderDate { get; set; }
         public decimal TotalAmount { get; set; }
