@@ -1,54 +1,150 @@
 ﻿@model NEGOSUD.Models.Entities.Product
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Détails";
 }
 
-<h1>Details</h1>
+<!--
+<h1>Détails</h1>
+-->
 
-<div>
-    <h4>Product</h4>
+<!-- Single Product Start -->
+<div class="container-fluid pb-5">
+    <div class="container py-5">
+        <div class="row g-4 mb-5">
+            <div class="col-lg-8 col-xl-9">
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="border rounded">
+                            <a href="#">
+                                <img src="https://picsum.photos/500" class="img-fluid rounded" alt="Image">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <h4 class="fw-bold mb-3"> @Html.DisplayFor(model => model.Name)</h4>
+                        <p class="mb-3">Catégorie: @Html.DisplayFor(model => model.Category.Name)</p>
+                        <h5 class="fw-bold mb-3">@Html.DisplayFor(model => model.PricePerUnit) €</h5>
+                        <div class="d-flex mb-4">
+                            <i class="fa fa-star text-secondary"></i>
+                            <i class="fa fa-star text-secondary"></i>
+                            <i class="fa fa-star text-secondary"></i>
+                            <i class="fa fa-star text-secondary"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <p class="mb-4">Le Lorem Ipsum généré est donc toujours exempt de répétition, d'humour injecté ou de mots non caractéristiques, etc.</p>
+                        <p class="mb-4">Suspendisse ultricies nisi vel quam suscipit. Sabertooth peacock flounder; chain pickerel hatchetfish, pencilfish snailfish</p>
+                        <div class="input-group quantity mb-5" style="width: 100px;">
+                            <div class="input-group-btn">
+                                <button class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                    <i class="bi bi-dash"></i>
+                                </button>
+                            </div>
+                            <input type="text" class="form-control form-control-sm text-center border-0" value="1">
+                            <div class="input-group-btn">
+                                <button class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                    <i class="bi bi-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <a href="#" class="btn border border-primary bg-primary rounded-pill px-4 py-2 mb-4 text-white"><i class="fa fa-shopping-bag me-2 text-primary"></i> Ajouter au panier</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-xl-3">
+                <div class="row g-4 fruite">
+                    <div class="col-lg-12">
+                        <div class="input-group w-100 mx-auto d-flex mb-4">
+                            <input type="search" class="form-control p-3" placeholder="mots-clés" aria-describedby="search-icon-1">
+                            <span id="search-icon-1" class="input-group-text p-3"><i class="bi bi-search"></i></span>
+                        </div>
+                        <div class="mb-4">
+                            <h4>Catégories</h4>
+                            <ul class="list-unstyled fruite-categorie">
+                                <li>
+                                    <div class="d-flex justify-content-between fruite-name">
+                                        <a href="#"><i class="fas fa-wine-bottle me-2"></i>Rouge</a>
+                                        <span>(3)</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="d-flex justify-content-between fruite-name">
+                                        <a href="#"><i class="fas fa-wine-bottle me-2"></i>Blanc</a>
+                                        <span>(5)</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="d-flex justify-content-between fruite-name">
+                                        <a href="#"><i class="fas fa-wine-bottle me-2"></i>Rosé</a>
+                                        <span>(2)</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="d-flex justify-content-between fruite-name">
+                                        <a href="#"><i class="fas fa-wine-bottle me-2"></i>Champagne</a>
+                                        <span>(8)</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="d-flex justify-content-between fruite-name">
+                                        <a href="#"><i class="fas fa-wine-bottle me-2"></i>Spiritueux</a>
+                                        <span>(5)</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Single Product End -->
+<!--
+    <div>
+    <h4>Produit</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
+@Html.DisplayNameFor(model => model.Name)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
+@Html.DisplayFor(model => model.Name)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PricePerUnit)
+@Html.DisplayNameFor(model => model.PricePerUnit)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PricePerUnit)
+@Html.DisplayFor(model => model.PricePerUnit)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StockQuantity)
+@Html.DisplayNameFor(model => model.StockQuantity)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StockQuantity)
+@Html.DisplayFor(model => model.StockQuantity)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MinimumStock)
+@Html.DisplayNameFor(model => model.MinimumStock)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MinimumStock)
+@Html.DisplayFor(model => model.MinimumStock)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
+@Html.DisplayNameFor(model => model.Category)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category.CategoryID)
+@Html.DisplayFor(model => model.Category.CategoryID)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Supplier)
+@Html.DisplayNameFor(model => model.Supplier)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Supplier.SupplierID)
+@Html.DisplayFor(model => model.Supplier.SupplierID)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.ProductID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.ProductID">Modifier</a> |
+    <a asp-action="Index">Retour à la liste</a>
 </div>
+-->
