@@ -5,7 +5,7 @@ using NEGOSUD.Models.Entities;
 
 namespace NEGOSUD.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+    public class ApplicationDbContext : IdentityDbContext<Customer>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
