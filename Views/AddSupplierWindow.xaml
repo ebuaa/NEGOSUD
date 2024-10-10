@@ -1,0 +1,18 @@
+﻿<Window x:Class="Negosud.Views.AddSupplierWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Ajouter Fournisseur" Height="300" Width="400">
+    <Grid>
+        <Label Content="Nom du Fournisseur:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"/>
+        <TextBox Name="txtSupplierName" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,10,0,0" Width="200"/>
+
+        <Label Content="Email:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,50,0,0"/>
+        <TextBox Name="txtEmail" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,50,0,0" Width="200"/>
+
+        <Button Content="Ajouter" Name="btnAddSupplier" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0" Width="100" Click="btnAddSupplier_Click"/>
+        <Button Content="Modifier" Name="btnUpdateSupplier" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="120,90,0,0" Width="100" Click="btnUpdateSupplier_Click"/>
+        <Button Content="Supprimer" Name="btnDeleteSupplier" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="230,90,0,0" Width="100" Click="btnDeleteSupplier_Click"/>
+
+        <ListBox Name="lstSuppliers" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,130,0,0" Width="360" Height="150" SelectionChanged="lstSuppliers_SelectionChanged"/>
+    </Grid>
+</Window>

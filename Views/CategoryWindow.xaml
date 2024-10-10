@@ -1,0 +1,18 @@
+﻿<Window x:Class="Negosud.Views.CategoryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Category Window" Height="350" Width="600">
+    <Grid>
+        <ListView Name="lvCategories" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="580">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding CategoryID}" Width="50"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="200"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Button Name="btnAdd" Content="Add Category" Width="120" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="btnAdd_Click"/>
+        <Button Name="btnDelete" Content="Delete Category" Width="120" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="btnDelete_Click"/>
+    </Grid>
+</Window>
