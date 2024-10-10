@@ -28,6 +28,7 @@
 					<td>@Model.OrderDetails[i].ProductName</td>
 					<td>@Model.OrderDetails[i].Quantity</td>
 					<td>@Model.OrderDetails[i].Price €</td>
+					<td>@(Model.OrderDetails[i].Quantity * Model.OrderDetails[i].Price) €</td>
 				</tr>
 			}
 			<tr>

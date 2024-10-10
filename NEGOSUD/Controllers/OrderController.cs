@@ -96,7 +96,7 @@ namespace NEGOSUD.Controllers
             HttpContext.Session.Set(sessionKey, model);
 
             // Redirect back to the Create view to show or update the order
-            return RedirectToAction(nameof(Create));
+            return RedirectToAction("Index","Products");
         }
 
         [HttpGet]
