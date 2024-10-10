@@ -54,9 +54,15 @@ namespace Negosud.Views
 
         private void btnManageCategories_Click(object sender, RoutedEventArgs e)
         {
-            var categoryWindow = new CategoryWindow(_categoryService);
+            var categoryWindow = new CategoryWindow(_productService, _categoryService, _supplierService, _customerService, _orderService);
             categoryWindow.Show();
             this.Hide();
+        }
+
+
+        public void ShowMainWindow()
+        {
+            this.Show();  
         }
 
         private void btnManageSuppliers_Click(object sender, RoutedEventArgs e)

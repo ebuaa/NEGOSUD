@@ -1,17 +1,29 @@
-﻿using Negosud.Models.Entities;
+﻿using System.Windows;
 using Negosud.Services;
-using System.Windows;
+using Negosud.Models.Entities;
 
 namespace Negosud.Views
 {
     public partial class CategoryWindow : Window
     {
-        private CategoryService _categoryService;
+        private readonly CategoryService _categoryService;
+        private readonly ProductService _productService;
+        private readonly SupplierService _supplierService;
+        private readonly CustomerService _customerService;
+        private readonly OrderService _orderService;
 
-        public CategoryWindow(CategoryService categoryService)
+        public CategoryWindow(ProductService productService,
+                       CategoryService categoryService,
+                       SupplierService supplierService,
+                       CustomerService customerService,
+                       OrderService orderService)
         {
             InitializeComponent();
+            _productService = productService;
             _categoryService = categoryService;
+            _supplierService = supplierService;
+            _customerService = customerService;
+            _orderService = orderService;
             LoadCategories();
         }
 
@@ -22,8 +34,23 @@ namespace Negosud.Views
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Category added successfully!");
+            var addCategoryWindow = new AddCategoryWindow(_categoryService);
+            addCategoryWindow.ShowDialog(); 
             LoadCategories();
+        }
+
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (lvCategories.SelectedItem is Category selectedCategory)
+            {
+                var editCategoryWindow = new AddCategoryWindow(_categoryService, selectedCategory);
+                editCategoryWindow.ShowDialog();
+                LoadCategories();
+            }
+            else
+            {
+                MessageBox.Show("Veuillez sélectionner une catégorie à modifier.");
+            }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -31,13 +58,20 @@ namespace Negosud.Views
             if (lvCategories.SelectedItem is Category selectedCategory)
             {
                 _categoryService.DeleteCategory(selectedCategory.CategoryID);
-                MessageBox.Show("Category deleted successfully!");
                 LoadCategories();
+                MessageBox.Show("Catégorie supprimée avec succès !");
             }
             else
             {
-                MessageBox.Show("Please select a category to delete.");
+                MessageBox.Show("Veuillez sélectionner une catégorie à supprimer.");
             }
+        }
+
+        private void btnReturn_Click(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = new MainWindow(_productService, _categoryService, _supplierService, _customerService, _orderService);
+            mainWindow.Show();
+            this.Close();
         }
     }
 }
