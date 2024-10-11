@@ -1,57 +1,51 @@
-﻿using System;
-using System.Windows;
-using System.Collections.Generic;
-using Negosud.Models.Entities; 
-using Negosud.Services; 
+﻿using System.Windows;
+using Negosud.Models.Entities;
+using Negosud.Services;
 
 namespace Negosud.Views
 {
     public partial class OrderWindow : Window
     {
+        private readonly CustomerService _customerService;
+        private readonly ProductService _productService;
+        private readonly CategoryService _categoryService;
+        private readonly SupplierService _supplierService;
         private readonly OrderService _orderService;
 
-        public OrderWindow(OrderService orderService)
+        public OrderWindow(ProductService productService,
+                           CategoryService categoryService,
+                           SupplierService supplierService,
+                           CustomerService customerService,
+                           OrderService orderService)
         {
             InitializeComponent();
+            _productService = productService;
+            _categoryService = categoryService;
+            _supplierService = supplierService;
+            _customerService = customerService;
             _orderService = orderService;
             LoadOrders();
         }
 
         private void LoadOrders()
         {
-            var orders = _orderService.GetAllOrders();
-            dgOrders.ItemsSource = orders; 
+            lvOrders.ItemsSource = _orderService.GetAllOrders();
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            var newOrder = new Order
-            {
-                OrderID = 0, 
-                CustomerID = 1, 
-                OrderDate = DateTime.Now,
-                TotalAmount = 100.00m, 
-                OrderStatus = "Pending" 
-            };
-
-            _orderService.AddOrder(newOrder);
-            LoadOrders();
-            MessageBox.Show("Order added successfully!");
+            var addOrderWindow = new AddOrderWindow(_orderService);
+            addOrderWindow.ShowDialog();
+            LoadOrders(); 
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-            if (dgOrders.SelectedItem is Order selectedOrder)
+            if (lvOrders.SelectedItem is Order selectedOrder)
             {
-                
-                selectedOrder.CustomerID = 2; 
-                selectedOrder.TotalAmount = 200.00m; 
-                selectedOrder.OrderDate = DateTime.Now; 
-                selectedOrder.OrderStatus = "Processed"; 
-
-                _orderService.UpdateOrder(selectedOrder);
-                LoadOrders();
-                MessageBox.Show("Order updated successfully!");
+                var editOrderWindow = new AddOrderWindow(_orderService, selectedOrder);
+                editOrderWindow.ShowDialog(); 
+                LoadOrders(); 
             }
             else
             {
@@ -61,11 +55,21 @@ namespace Negosud.Views
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (dgOrders.SelectedItem is Order selectedOrder)
+            if (lvOrders.SelectedItem is Order selectedOrder)
             {
-                _orderService.DeleteOrder(selectedOrder); 
-                LoadOrders();
-                MessageBox.Show("Order deleted successfully!");
+                
+                var orderToDelete = _orderService.GetOrderById(selectedOrder.OrderID);
+
+                if (orderToDelete != null)
+                {
+                    _orderService.DeleteOrder(orderToDelete); 
+                    LoadOrders(); 
+                    MessageBox.Show("Order deleted successfully!");
+                }
+                else
+                {
+                    MessageBox.Show("Order not found.");
+                }
             }
             else
             {
@@ -76,18 +80,9 @@ namespace Negosud.Views
 
         private void btnReturn_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
-        }
-
-        private void dgOrders_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            if (dgOrders.SelectedItem is Order selectedOrder)
-            {
-                // Populate any input fields if needed for the selected order
-                // txtCustomerId.Text = selectedOrder.CustomerID.ToString();
-                //  txtTotalAmount.Text = selectedOrder.TotalAmount.ToString();
-                //  dpOrderDate.SelectedDate = selectedOrder.OrderDate;
-            }
+            var mainWindow = new MainWindow(_productService, _categoryService, _supplierService, _customerService, _orderService);
+            mainWindow.Show();
+            this.Close(); 
         }
     }
 }

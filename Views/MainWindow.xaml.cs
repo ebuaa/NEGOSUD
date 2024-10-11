@@ -69,7 +69,7 @@ namespace Negosud.Views
 
         private void btnManageOrder_Click(object sender, RoutedEventArgs e)
         {
-            var orderWindow = new OrderWindow(_orderService);
+            var orderWindow = new OrderWindow(_productService, _categoryService, _supplierService, _customerService, _orderService);
             orderWindow.Show();
             this.Hide();
         }

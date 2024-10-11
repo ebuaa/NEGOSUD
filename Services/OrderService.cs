@@ -23,6 +23,10 @@ namespace Negosud.Services
         {
             return _context.Orders.ToList();
         }
+        public Order GetOrderById(int orderId)
+        {
+            return _context.Orders.Find(orderId);
+        }
 
         public void AddOrder(Order order)
         {
