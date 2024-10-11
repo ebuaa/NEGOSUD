@@ -62,7 +62,7 @@ namespace Negosud.Views
 
         private void btnManageSuppliers_Click(object sender, RoutedEventArgs e)
         {
-            var supplierWindow = new SupplierWindow(_supplierService);
+            var supplierWindow = new SupplierWindow(_productService, _categoryService, _supplierService, _customerService, _orderService);
             supplierWindow.Show();
             this.Hide();
         }

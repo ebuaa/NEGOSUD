@@ -1,17 +1,29 @@
-﻿using Negosud.Models.Entities;
+﻿using System.Windows;
 using Negosud.Services;
-using System.Windows;
+using Negosud.Models.Entities;
 
 namespace Negosud.Views
 {
     public partial class SupplierWindow : Window
     {
-        private SupplierService _supplierService;
+        private readonly CustomerService _customerService;
+        private readonly ProductService _productService;
+        private readonly CategoryService _categoryService;
+        private readonly SupplierService _supplierService;
+        private readonly OrderService _orderService;
 
-        public SupplierWindow(SupplierService supplierService)
+        public SupplierWindow(ProductService productService,
+                              CategoryService categoryService,
+                              SupplierService supplierService,
+                              CustomerService customerService,
+                              OrderService orderService)
         {
             InitializeComponent();
+            _productService = productService;
+            _categoryService = categoryService;
             _supplierService = supplierService;
+            _customerService = customerService;
+            _orderService = orderService;
             LoadSuppliers();
         }
 
@@ -22,8 +34,23 @@ namespace Negosud.Views
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Supplier added successfully!");
+            var addSupplierWindow = new AddSupplierWindow(_supplierService);
+            addSupplierWindow.ShowDialog();
             LoadSuppliers();
+        }
+
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (lvSuppliers.SelectedItem is Supplier selectedSupplier)
+            {
+                var editSupplierWindow = new AddSupplierWindow(_supplierService, selectedSupplier);
+                editSupplierWindow.ShowDialog();
+                LoadSuppliers();
+            }
+            else
+            {
+                MessageBox.Show("Veuillez sélectionner un fournisseur à modifier.");
+            }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -31,13 +58,20 @@ namespace Negosud.Views
             if (lvSuppliers.SelectedItem is Supplier selectedSupplier)
             {
                 _supplierService.DeleteSupplier(selectedSupplier.SupplierID);
-                MessageBox.Show("Supplier deleted successfully!");
                 LoadSuppliers();
+                MessageBox.Show("Fournisseur supprimé avec succès !");
             }
             else
             {
-                MessageBox.Show("Please select a supplier to delete.");
+                MessageBox.Show("Veuillez sélectionner un fournisseur à supprimer.");
             }
+        }
+
+        private void btnReturn_Click(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = new MainWindow(_productService, _categoryService, _supplierService, _customerService, _orderService);
+            mainWindow.Show();
+            this.Close();
         }
     }
 }

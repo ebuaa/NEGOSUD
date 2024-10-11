@@ -1,6 +1,4 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 using Negosud.Models.Entities;
 using Negosud.Services;
 
@@ -8,60 +6,55 @@ namespace Negosud.Views
 {
     public partial class AddSupplierWindow : Window
     {
-        private SupplierService _supplierService;
+        private readonly SupplierService _supplierService;
+        private readonly Supplier _supplierToEdit;
 
         public AddSupplierWindow(SupplierService supplierService)
         {
             InitializeComponent();
             _supplierService = supplierService;
-            LoadSuppliers();
+            _supplierToEdit = null;
         }
 
-        private void LoadSuppliers()
+        public AddSupplierWindow(SupplierService supplierService, Supplier supplierToEdit)
         {
-            var suppliers = _supplierService.GetAllSuppliers();
-            lstSuppliers.ItemsSource = suppliers;
+            InitializeComponent();
+            _supplierService = supplierService;
+            _supplierToEdit = supplierToEdit;
+
+            txtCustomerName.Text = _supplierToEdit.Name;
+            txtCustomerEmail.Text = _supplierToEdit.Email;
+            txtCustomerPhone.Text = _supplierToEdit.ContactInfo;
         }
 
-        private void btnAddSupplier_Click(object sender, RoutedEventArgs e)
+        private void btnSaveCustomer_Click(object sender, RoutedEventArgs e)
         {
-            var newSupplier = new Supplier
+            if (_supplierToEdit == null) 
             {
-                Name = txtSupplierName.Text,
-            };
-
-            _supplierService.AddSupplier(newSupplier);
-            LoadSuppliers();
-            MessageBox.Show("Fournisseur ajouté avec succès !");
-        }
-
-        private void btnDeleteSupplier_Click(object sender, RoutedEventArgs e)
-        {
-            if (lstSuppliers.SelectedItem is Supplier selectedSupplier)
-            {
-                _supplierService.DeleteSupplier(selectedSupplier.SupplierID); 
-                LoadSuppliers();
-                MessageBox.Show("Fournisseur supprimé avec succès !");
+                var newSupplier = new Supplier
+                {
+                    Name = txtCustomerName.Text,
+                    Email = txtCustomerEmail.Text,
+                    ContactInfo = txtCustomerPhone.Text
+                };
+                _supplierService.AddSupplier(newSupplier);
+                MessageBox.Show("Fournisseur ajouté avec succès !");
             }
+            else 
+            {
+                _supplierToEdit.Name = txtCustomerName.Text;
+                _supplierToEdit.Email = txtCustomerEmail.Text;
+                _supplierToEdit.ContactInfo = txtCustomerPhone.Text;
+                _supplierService.UpdateSupplier(_supplierToEdit);
+                MessageBox.Show("Fournisseur modifié avec succès !");
+            }
+
+            this.Close(); 
         }
 
-        private void btnUpdateSupplier_Click(object sender, RoutedEventArgs e)
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            if (lstSuppliers.SelectedItem is Supplier selectedSupplier)
-            {
-                selectedSupplier.Name = txtSupplierName.Text;
-                _supplierService.UpdateSupplier(selectedSupplier);
-                LoadSuppliers();
-                MessageBox.Show("Fournisseur mis à jour avec succès !");
-            }
-        }
-
-        private void lstSuppliers_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            if (lstSuppliers.SelectedItem is Supplier selectedSupplier)
-            {
-                txtSupplierName.Text = selectedSupplier.Name; 
-            }
+            this.Close(); 
         }
     }
 }

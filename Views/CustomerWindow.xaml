@@ -15,17 +15,8 @@
         </ListView>
 
         <Button Name="btnAdd" Content="Add Customer" Width="120" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="btnAdd_Click"/>
-        <Button Name="btnEdit" Content="Edit Customer" Width="120" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="btnEdit_Click" Margin="120,0,0,0" RenderTransformOrigin="0.5,0.5">
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="0.305"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Button.RenderTransform>
-        </Button>
-        <Button Name="btnDelete" Content="Delete Customer" Width="120" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" Click="btnDelete_Click" Margin="0,304,0,0"/>
+        <Button Name="btnEdit" Content="Edit Customer" Width="120" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="btnEdit_Click" Margin="120,0,0,0" RenderTransformOrigin="0.5,0.5"/>
+        <Button Name="btnDelete" Content="Delete Customer" Width="120" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Click="btnDelete_Click" Margin="245,284,0,0"/>
         <Button Name="btnReturn" Content="Return" Width="120" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="480,0,0,0" Click="btnReturn_Click"/>
     </Grid>
 </Window>
