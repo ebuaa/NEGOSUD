@@ -18,17 +18,11 @@ namespace NEGOSUDAPI.Services.ProductsServices
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
-            try
-            {
              return await _context.Products
                 .Include(p => p.Category)
                 .Include(p => p.Supplier)
                 .ToListAsync();
-            }
-            catch(Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+
             
         }
 

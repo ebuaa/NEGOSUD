@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 
 namespace NEGOSUDAPI.Models.Entities
 {
@@ -10,6 +12,7 @@ namespace NEGOSUDAPI.Models.Entities
         public string? Telephone { get; set; }
 
         //Navigation property
+        [JsonIgnore]
         public ICollection<Order>? Orders { get; set; }
     }
 }
