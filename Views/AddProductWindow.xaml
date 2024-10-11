@@ -1,29 +1,33 @@
 ﻿<Window x:Class="Negosud.Views.AddProductWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Add Product" Height="400" Width="400">
+        Title="Ajouter Produit" Height="500" Width="400">
     <StackPanel Margin="10">
-        <TextBlock Text="Name:" />
+        <TextBlock Text="Nom:" />
         <TextBox x:Name="txtName" Margin="0,0,0,10" />
 
         <TextBlock Text="Description:" />
         <TextBox x:Name="txtDescription" Margin="0,0,0,10" />
 
-        <TextBlock Text="Price:" />
+        <TextBlock Text="Prix:" />
         <TextBox x:Name="txtPrice" Margin="0,0,0,10" />
 
         <TextBlock Text="Stock:" />
         <TextBox x:Name="txtStock" Margin="0,0,0,10" />
 
-        <TextBlock Text="Minimum Stock:" />
+        <TextBlock Text="Stock Minimum:" />
         <TextBox x:Name="txtMinimumStock" Margin="0,0,0,10" />
 
-        <TextBlock Text="Category:" />
+        <TextBlock Text="Catégorie:" />
         <ComboBox x:Name="cmbCategories" Margin="0,0,0,10" />
 
-        <TextBlock Text="Supplier:" />
+        <TextBlock Text="Fournisseur:" />
         <ComboBox x:Name="cmbSuppliers" Margin="0,0,0,10" />
 
-        <Button x:Name="btnSave" Content="Save" Click="btnSave_Click" Margin="5"/>
+        <TextBlock Text="Image URL:" />
+        <TextBox x:Name="txtImageUrl" Margin="0,0,0,10" />
+        <Button x:Name="btnBrowseImage" Content="Parcourir" Click="btnBrowseImage_Click" Margin="5" />
+
+        <Button x:Name="btnSave" Content="Enregistrer" Click="btnSave_Click" Margin="5"/>
     </StackPanel>
 </Window>

@@ -2,6 +2,8 @@
 using Negosud.Models.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Negosud.Services
 {
@@ -31,7 +33,16 @@ namespace Negosud.Services
         {
             return _context.Products.Find(id);
         }
-
+        public IEnumerable<Product> GetAllProductsWithDetails()
+        {
+            using (var context = new NegosudContext()) 
+            {
+                return context.Products
+                    .Include(p => p.Category)
+                    .Include(p => p.Supplier) 
+                    .ToList();
+            }
+        }
         public void AddProduct(Product product)
         {
             _context.Products.Add(product);
@@ -53,5 +64,25 @@ namespace Negosud.Services
                 _context.SaveChanges();
             }
         }
+        public List<Category> GetCategories()
+        {
+            return _context.Categories.ToList();
+        }
+
+        public List<Supplier> GetSuppliers()
+        {
+            return _context.Suppliers.ToList();
+        }
+        public Category GetCategoryById(int categoryId)
+        {
+            return _context.Categories.SingleOrDefault(c => c.CategoryID == categoryId);
+        }
+
+        public Supplier GetSupplierById(int supplierId)
+        {
+            return _context.Suppliers.SingleOrDefault(s => s.SupplierID == supplierId);
+        }
+
+
     }
 }

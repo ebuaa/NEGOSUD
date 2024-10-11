@@ -1,20 +1,18 @@
 ﻿using System;
-using System.Linq;
+using System.Globalization;
 using System.Windows;
-using System.Windows.Controls;
+using Microsoft.Win32; 
 using Negosud.Models.Entities;
 using Negosud.Services;
-using Microsoft.Win32;
 
 namespace Negosud.Views
 {
     public partial class AddProductWindow : Window
     {
-        private ProductService _productService;
-        private CategoryService _categoryService;
-        private SupplierService _supplierService;
-
-        public ProductService ProductService { get; }
+        private readonly ProductService _productService;
+        private readonly CategoryService _categoryService;
+        private readonly SupplierService _supplierService;
+        private readonly Product _productToEdit;
 
         public AddProductWindow(ProductService productService, CategoryService categoryService, SupplierService supplierService)
         {
@@ -22,57 +20,89 @@ namespace Negosud.Views
             _productService = productService;
             _categoryService = categoryService;
             _supplierService = supplierService;
-            LoadCategories();
-            LoadSuppliers();
+            _productToEdit = null;
+
+            LoadCategoriesAndSuppliers();
         }
 
-        public AddProductWindow(ProductService productService)
+        public AddProductWindow(ProductService productService, CategoryService categoryService, SupplierService supplierService, Product productToEdit)
+            : this(productService, categoryService, supplierService)
         {
-            ProductService = productService;
+            _productToEdit = productToEdit;
+
+            txtName.Text = _productToEdit.Name;
+            txtDescription.Text = _productToEdit.Description;
+            txtPrice.Text = _productToEdit.PricePerUnit.ToString(CultureInfo.InvariantCulture);
+            txtStock.Text = _productToEdit.StockQuantity.ToString();
+            txtMinimumStock.Text = _productToEdit.MinimumStock.ToString();
+            cmbCategories.SelectedValue = _productToEdit.CategoryID;
+            cmbSuppliers.SelectedValue = _productToEdit.SupplierID;
+            txtImageUrl.Text = _productToEdit.ImageUrl; 
         }
 
-        private void LoadCategories()
+        private void LoadCategoriesAndSuppliers()
         {
-            var categories = _categoryService.GetAllCategories(); 
-            cmbCategories.ItemsSource = categories;
-            cmbCategories.DisplayMemberPath = "Name"; 
-            cmbCategories.SelectedValuePath = "CategoryID"; 
-        }
+            cmbCategories.ItemsSource = _categoryService.GetAllCategories();
+            cmbCategories.DisplayMemberPath = "Name";
+            cmbCategories.SelectedValuePath = "CategoryID";
 
-        private void LoadSuppliers()
-        {
-            var suppliers = _supplierService.GetAllSuppliers(); 
-            cmbSuppliers.ItemsSource = suppliers;
-            cmbSuppliers.DisplayMemberPath = "Name"; 
-            cmbSuppliers.SelectedValuePath = "SupplierID"; 
+            cmbSuppliers.ItemsSource = _supplierService.GetAllSuppliers();
+            cmbSuppliers.DisplayMemberPath = "Name";
+            cmbSuppliers.SelectedValuePath = "SupplierID";
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (cmbCategories.SelectedValue == null || cmbSuppliers.SelectedValue == null)
-            {
-                MessageBox.Show("Veuillez sélectionner une catégorie et un fournisseur !");
-                return;
-            }
-
-            
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            if (openFileDialog.ShowDialog() == true)
+            if (_productToEdit == null)
             {
                 var newProduct = new Product
                 {
                     Name = txtName.Text,
-                    PricePerUnit = decimal.Parse(txtPrice.Text),
+                    Description = txtDescription.Text,
+                    PricePerUnit = decimal.Parse(txtPrice.Text, CultureInfo.InvariantCulture),
                     StockQuantity = int.Parse(txtStock.Text),
                     MinimumStock = int.Parse(txtMinimumStock.Text),
-                    CategoryID = (int)cmbCategories.SelectedValue, 
-                    SupplierID = (int)cmbSuppliers.SelectedValue, 
-                    ImageUrl = openFileDialog.FileName 
+                    CategoryID = (int)cmbCategories.SelectedValue,
+                    SupplierID = (int)cmbSuppliers.SelectedValue,
+                    ImageUrl = txtImageUrl.Text
                 };
 
-                _productService.AddProduct(newProduct); 
+                _productService.AddProduct(newProduct);
                 MessageBox.Show("Produit ajouté avec succès !");
-                this.Close();
+            }
+            else 
+            {
+                var selectedCategory = _categoryService.GetCategoryById((int)cmbCategories.SelectedValue);
+                var selectedSupplier = _supplierService.GetSupplierById((int)cmbSuppliers.SelectedValue);
+
+                _productToEdit.Name = txtName.Text;
+                _productToEdit.Description = txtDescription.Text;
+                _productToEdit.PricePerUnit = decimal.Parse(txtPrice.Text, CultureInfo.InvariantCulture);
+                _productToEdit.StockQuantity = int.Parse(txtStock.Text);
+                _productToEdit.MinimumStock = int.Parse(txtMinimumStock.Text);
+                _productToEdit.Category = selectedCategory; 
+                _productToEdit.Supplier = selectedSupplier; 
+                _productToEdit.ImageUrl = txtImageUrl.Text;
+
+                _productService.UpdateProduct(_productToEdit);
+                MessageBox.Show("Produit modifié avec succès !");
+            }
+
+            this.Close();
+        }
+
+
+        private void btnBrowseImage_Click(object sender, RoutedEventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog
+            {
+                Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp",
+                Title = "Select an Image"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                txtImageUrl.Text = openFileDialog.FileName;
             }
         }
     }

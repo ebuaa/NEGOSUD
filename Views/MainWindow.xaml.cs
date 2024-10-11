@@ -41,7 +41,7 @@ namespace Negosud.Views
 
         private void btnManageProducts_Click(object sender, RoutedEventArgs e)
         {
-            var productWindow = new ProductWindow(_productService);
+            var productWindow = new ProductWindow(_productService, _categoryService, _supplierService, _customerService, _orderService);
             productWindow.Show();
             this.Hide();
         }
