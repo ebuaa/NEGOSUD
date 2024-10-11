@@ -22,7 +22,6 @@ namespace Negosud.Views
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            // Add supplier logic here
             MessageBox.Show("Supplier added successfully!");
             LoadSuppliers();
         }

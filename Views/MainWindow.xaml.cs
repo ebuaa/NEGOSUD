@@ -1,5 +1,4 @@
-﻿// MainWindow.xaml.cs
-using System.Windows;
+﻿using System.Windows;
 using Negosud.Data;
 using Negosud.Services;
 
@@ -13,11 +12,6 @@ namespace Negosud.Views
         private CustomerService _customerService;
         private OrderService _orderService;
         private NegosudContext _context;
-        private ProductService productService;
-        private CategoryService categoryService;
-        private SupplierService supplierService;
-        private CustomerService customerService;
-        private OrderService orderService;
 
         public MainWindow()
         {
@@ -27,17 +21,17 @@ namespace Negosud.Views
 
         public MainWindow(ProductService productService, CategoryService categoryService, SupplierService supplierService, CustomerService customerService, OrderService orderService)
         {
-            this.productService = productService;
-            this.categoryService = categoryService;
-            this.supplierService = supplierService;
-            this.customerService = customerService;
-            this.orderService = orderService;
+            InitializeComponent();
+            _productService = productService;
+            _categoryService = categoryService;
+            _supplierService = supplierService;
+            _customerService = customerService;
+            _orderService = orderService;
         }
 
         private void InitializeServices()
         {
             _context = new NegosudContext();
-
             _productService = new ProductService(_context);
             _categoryService = new CategoryService(_context);
             _supplierService = new SupplierService(_context);
@@ -59,10 +53,11 @@ namespace Negosud.Views
             this.Hide();
         }
 
-
-        public void ShowMainWindow()
+        private void btnManageCustomers_Click(object sender, RoutedEventArgs e)
         {
-            this.Show();  
+            var customerWindow = new CustomerWindow(_productService, _categoryService, _supplierService, _customerService, _orderService);
+            customerWindow.Show();
+            this.Hide();
         }
 
         private void btnManageSuppliers_Click(object sender, RoutedEventArgs e)
@@ -72,18 +67,16 @@ namespace Negosud.Views
             this.Hide();
         }
 
-        private void btnManageCustomers_Click(object sender, RoutedEventArgs e)
-        {
-            var customerWindow = new CustomerWindow(_customerService);
-            customerWindow.Show();
-            this.Hide();
-        }
-
         private void btnManageOrder_Click(object sender, RoutedEventArgs e)
         {
             var orderWindow = new OrderWindow(_orderService);
             orderWindow.Show();
             this.Hide();
+        }
+
+        public void ShowMainWindow()
+        {
+            this.Show();
         }
     }
 }

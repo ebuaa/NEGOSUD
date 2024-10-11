@@ -7,13 +7,25 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" DisplayMemberBinding="{Binding CustomerID}" Width="50"/>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="200"/>
-                    <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}" Width="200"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="120"/>
+                    <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}" Width="150"/>
+                    <GridViewColumn Header="Phone" DisplayMemberBinding="{Binding Phone}" Width="100"/>
                 </GridView>
             </ListView.View>
         </ListView>
 
         <Button Name="btnAdd" Content="Add Customer" Width="120" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="btnAdd_Click"/>
-        <Button Name="btnDelete" Content="Delete Customer" Width="120" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="btnDelete_Click"/>
+        <Button Name="btnEdit" Content="Edit Customer" Width="120" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="btnEdit_Click" Margin="120,0,0,0" RenderTransformOrigin="0.5,0.5">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.305"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button Name="btnDelete" Content="Delete Customer" Width="120" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" Click="btnDelete_Click" Margin="0,304,0,0"/>
+        <Button Name="btnReturn" Content="Return" Width="120" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="480,0,0,0" Click="btnReturn_Click"/>
     </Grid>
 </Window>

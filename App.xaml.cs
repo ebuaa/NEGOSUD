@@ -19,7 +19,7 @@ namespace Negosud
             var orderService = new OrderService(context);
 
             var mainWindow = new Views.MainWindow(productService, categoryService, supplierService, customerService, orderService);
-            mainWindow.Show();
+            
         }
     }
 }
