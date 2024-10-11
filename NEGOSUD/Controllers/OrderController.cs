@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using NEGOSUD.Data;
 using NEGOSUD.Models.Entities;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace NEGOSUD.Controllers
@@ -96,7 +97,7 @@ namespace NEGOSUD.Controllers
             HttpContext.Session.Set(sessionKey, model);
 
             // Redirect back to the Create view to show or update the order
-            return RedirectToAction("Index","Products");
+            return RedirectToAction("Index", "Products");
         }
 
         [HttpGet]
@@ -118,9 +119,70 @@ namespace NEGOSUD.Controllers
 
             if (model == null || model.OrderDetails.Count == 0)
             {
-                return RedirectToAction(nameof(Create));
+                return RedirectToAction("Index", "Products");
             }
             return View(model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> PlaceOrder()
+        {
+            var customerId = _userManager.GetUserId(User);
+            if (customerId == null)
+            {
+                return Unauthorized();
+            }
+
+            var sessionKey = $"OrderViewModel_{customerId}";
+            var model = HttpContext.Session.Get<OrderViewModel>(sessionKey);
+            if (model == null || model.OrderDetails.Count == 0)
+            {
+                return RedirectToAction("Index", "Products");
+            }
+
+            // Create a new Order entity
+            var order = new Order
+            {
+                OrderDate = DateTime.Now,
+                TotalAmount = model.TotalAmount,
+                CustomerID = customerId,
+                OrderDetails = model.OrderDetails.Select(od => new OrderDetail
+                {
+                    ProductID = od.ProductID,
+                    Quantity = od.Quantity,
+                    UnitPrice = od.Price
+                }).ToList()
+            };
+
+            // Save the Order entity to the database
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
+
+            // Clear the OrderViewModel from Session
+            HttpContext.Session.Remove(sessionKey);
+
+            return RedirectToAction("ViewOrders");
+        }
+
+        [HttpGet]
+        [Authorize]
+
+        public async Task<IActionResult> ViewOrders()
+        {
+            var customerId = _userManager.GetUserId(User);
+            if (customerId == null)
+            {
+                return Unauthorized();
+            }
+
+            var orders = await _context.Orders
+                .Include(o => o.OrderDetails)
+                .ThenInclude(od => od.Product)
+                .Where(o => o.CustomerID == customerId)
+                .ToListAsync();
+
+            return View(orders);
         }
     }
 }
