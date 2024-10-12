@@ -5,6 +5,7 @@ using NEGOSUDAPI.Data;
 using NEGOSUDAPI.Models.Entities;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using NEGOSUDAPI.Services.CustomersServices;
+using NEGOSUDAPI.Services.CategoriesServices;
 
 
 
@@ -21,6 +22,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Enregistrement des services
 builder.Services.AddScoped<IProductsService, ProductsService>();
 builder.Services.AddScoped<ICustomersService, CustomersService>();
+builder.Services.AddScoped<ICategoriesService, CategoriesService>();
 
 // Ajout de Swagger pour la documentation de l'API
 builder.Services.AddEndpointsApiExplorer();
