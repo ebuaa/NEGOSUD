@@ -15,6 +15,8 @@ namespace NEGOSUDAPI.Models.Entities
         public decimal PricePerUnit { get; set; }
         public int StockQuantity { get; set; }
         public int MinimumStock { get; set; }
+        public string? Description { get; set; }
+
 
         // Foreign Key
         public int CategoryID { get; set; } // References Category
@@ -29,13 +31,14 @@ namespace NEGOSUDAPI.Models.Entities
         public Supplier? Supplier { get; set; }
 
         [NotMapped]
+        [JsonIgnore]
         public IFormFile? ImageFile { get; set; }
         public string ImageUrl { get; set; }
-        public string? Description { get; set; }
 
 
         // Navigation properties
         [ValidateNever]
+        [JsonIgnore]
         public ICollection<OrderDetail>? OrderDetails { get; set; }
     }
 }

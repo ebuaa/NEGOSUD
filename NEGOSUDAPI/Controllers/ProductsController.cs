@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Routing;
 using NEGOSUDAPI.Services.ProductsServices;
 using NEGOSUDAPI.Models.Entities;
 
-namespace NEGOSUD.Controllers
+namespace NEGOSUDAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

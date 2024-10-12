@@ -36,8 +36,20 @@ namespace NEGOSUDAPI.Services.ProductsServices
 
         public async Task AddProductAsync(Product product)
         {
+            var categoryExists = await _context.Categories.AnyAsync(c => c.CategoryID == product.CategoryID);
+            if (!categoryExists)
+            {
+                throw new Exception($"La catégorie avec l'ID {product.CategoryID} n'existe pas.");
+            }
+
+            var supplierExists = await _context.Suppliers.AnyAsync(s => s.SupplierID == product.SupplierID);
+            if (!supplierExists)
+            {
+                throw new Exception($"Le fournisseur avec l'ID {product.SupplierID} n'existe pas.");
+            }
+
             _context.Products.Add(product);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public async Task UpdateProductAsync(Product product)
