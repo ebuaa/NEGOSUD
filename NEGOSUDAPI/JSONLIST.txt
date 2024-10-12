@@ -1,0 +1,29 @@
+
+Supplier
+
+{
+  "companyName": "Fournisseur test 1",
+  "contactPerson": "Toto contact chez le fournisseur",
+  "address": "rue du fournisseur",
+  "phoneNumber": "0606060606"
+}
+
+Category
+
+{
+  "name": "Vin rouge",
+  "description": "Vin rouge créé à partir de raisin"
+}
+
+Products 
+
+{
+  "name": "merlot",
+  "pricePerUnit": 20,
+  "stockQuantity": 10,
+  "minimumStock": 10,
+  "description": "Merlot du château fort",
+  "categoryID": 1,
+  "supplierID": 1,
+  "imageUrl": "string"
+}

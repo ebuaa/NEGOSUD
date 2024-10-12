@@ -7,35 +7,33 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using NEGOSUDAPI.Services.CustomersServices;
 using NEGOSUDAPI.Services.CategoriesServices;
 using NEGOSUDAPI.Services.SuppliersServices;
+using NEGOSUDAPI.Services.OrdersServices;
+using NEGOSUDAPI.Services.OrderDetailsServices;
 
 
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuration du service DbContext pour utiliser SQL Server
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 
-/*TODO: Configurer les endpoints de l'API*/
-
-// Enregistrement des services
+// services
 builder.Services.AddScoped<IProductsService, ProductsService>();
 builder.Services.AddScoped<ICustomersService, CustomersService>();
 builder.Services.AddScoped<ICategoriesService, CategoriesService>();
 builder.Services.AddScoped<ISuppliersService, SuppliersService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IOrderDetailService, OrderDetailService>();
 
-// Ajout de Swagger pour la documentation de l'API
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();  // Cette ligne est nécessaire pour configurer Swagger
+builder.Services.AddSwaggerGen();  
     
-// Ajout des services pour les contrôleurs avec des vues Razor
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// Configuration du pipeline de gestion des requêtes HTTP
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -53,10 +51,5 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllers();
-
-/*app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Products/{action=Create}/{id?}");
-*/
 
 app.Run();
