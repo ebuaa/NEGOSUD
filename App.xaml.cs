@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Microsoft.EntityFrameworkCore;
 using Negosud.Data;
 using Negosud.Services;
 
@@ -17,7 +18,9 @@ namespace Negosud
             var productService = new ProductService(context, categoryService, supplierService);
             var customerService = new CustomerService(context);
             var orderService = new OrderService(context);
-            var mainWindow = new Views.MainWindow(productService, categoryService, supplierService, customerService, orderService);
+            var supplierOrderService = new SupplierOrderService(context);
+
+            var mainWindow = new Views.MainWindow(productService, categoryService, supplierService, customerService, orderService, supplierOrderService);
 
             var loginWindow = new Views.LoginWindow();
             bool? loginResult = loginWindow.ShowDialog();

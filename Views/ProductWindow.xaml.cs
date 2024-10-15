@@ -12,12 +12,15 @@ namespace Negosud.Views
         private readonly CategoryService _categoryService;
         private readonly SupplierService _supplierService;
         private readonly OrderService _orderService;
+        private SupplierOrderService _supplierOrderService;
+
 
         public ProductWindow(ProductService productService,
                            CategoryService categoryService,
                            SupplierService supplierService,
                            CustomerService customerService,
-                           OrderService orderService)
+                           OrderService orderService,
+                           SupplierOrderService supplierOrderService)
         {
             InitializeComponent();
             _productService = productService;
@@ -25,6 +28,7 @@ namespace Negosud.Views
             _supplierService = supplierService;
             _customerService = customerService;
             _orderService = orderService;
+            _supplierOrderService = supplierOrderService;
             LoadProducts();
         }
         private void LoadProducts()
@@ -80,7 +84,7 @@ namespace Negosud.Views
 
         private void btnReturn_Click(object sender, RoutedEventArgs e)
         {
-            var mainWindow = new MainWindow(_productService, _categoryService, _supplierService, _customerService, _orderService);
+            var mainWindow = new MainWindow(_productService, _categoryService, _supplierService, _customerService, _orderService, _supplierOrderService);
             mainWindow.Show();
             this.Close();
         }

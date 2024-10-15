@@ -4,10 +4,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Main Window" Height="400" Width="300">
     <StackPanel Margin="10">
-        <Button Name="btnManageProducts" Content="Gérer Produits"  Click="btnManageProducts_Click"/>
+        <Button Name="btnManageProducts" Content="Gérer Produits"  Click="btnManageProducts_Click" Width="270"/>
         <Button x:Name="btnManageCustomers" Content="Gérer Customers" Click="btnManageCustomers_Click" Margin="5"/>
         <Button x:Name="btnManageSuppliers" Content="Gérer Fournisseurs" Click="btnManageSuppliers_Click" Margin="5"/>
         <Button x:Name="btnManageCategories" Content="Gérer Catégories" Click="btnManageCategories_Click" Margin="5"/>
         <Button x:Name="btnManageOrder" Content="Gérer les Commandes" Click="btnManageOrder_Click" Margin="5"/>
+        <Button x:Name="btnManageSupplierOrders" Content="Gérer les Commandes Fournisseurs" Click="btnManageSupplierOrders_Click" Margin="5"/>
     </StackPanel>
 </Window>
