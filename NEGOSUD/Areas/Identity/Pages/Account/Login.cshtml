@@ -7,10 +7,10 @@
 
 <h1>@ViewData["Title"]</h1>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <section>
             <form id="account" method="post">
-                <h2>Utilisez un compte local pour vous connecter.</h2>
+                
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                 <div class="form-floating mb-3">
@@ -26,10 +26,10 @@
                 <div class="checkbox mb-3">
                     <label asp-for="Input.RememberMe" class="form-label">
                         <input class="form-check-input" asp-for="Input.RememberMe" />
-                        @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        Se souvenir de moi
                     </label>
                 </div>
-                <div>
+                <div class="mb-2">
                     <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Se connecter</button>
                 </div>
                 <div>
@@ -48,34 +48,7 @@
     </div>
     <div class="col-md-6 col-md-offset-2">
         <section>
-            <h3>Utilisez un autre service pour vous connecter.</h3>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            Aucun service d'authentification externe n'est configuré. Voir cet <a href="https://go.microsoft.com/fwlink/?LinkID=532715">
-                                article
-                                sur la configuration de cette application ASP.NET pour prendre en charge la connexion via des services externes
-                            </a>.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins!)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Se connecter en utilisant votre compte @provider.DisplayName">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }
+            <div><img class="img-fluid rounded d-none d-md-block" src="~/images/Register.png" /></div>
         </section>
     </div>
 </div>
