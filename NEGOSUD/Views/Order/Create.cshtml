@@ -1,0 +1,25 @@
+﻿@model NEGOSUD.Models.Entities.OrderViewModel
+
+@{
+    ViewData["Title"] = "Créer une commande";
+}
+
+<h1>Créer une commande</h1>
+
+<div class="row">
+    @foreach (var product in Model.Products)
+    {
+        <div class="col-md-4">
+            <form asp-action="AddDetail" method="post">
+                <div class="card">
+                    <input type="hidden" value="@product.ProductID" name="ProductID" />
+                    <div class="form-group">
+                        <label for="StockQuantity">Quantity</label>
+                        <input type="number" class="form-control" id="StockQuantity" name="StockQuantity" value="1" min="1" />
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Ajouter au panier</button>
+            </form>
+        </div>
+    }
+</div>

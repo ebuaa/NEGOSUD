@@ -106,6 +106,8 @@
 
                     <div class="col-lg-9">
                         <div class="row g-4 justify-content-start">
+
+                            <!-- Loop of the products -->
                             @foreach (var product in Model)
                             {
                                 <div class="col-md-6 col-lg-6 col-xl-4">
@@ -113,21 +115,32 @@
                                         <div class="fruite-img">
                                             <img src="https://picsum.photos/300" class="img-fluid rounded-top w-100" alt="">
                                         </div>
-                                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">
+                                        <div class="text-white bg-primary bg-gradient px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">
                                             @Html.DisplayFor(modelItem => product.Category.Name)
                                         </div>
                                         <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4><a asp-action="Details" asp-route-id="@product.ProductID"> @Html.DisplayFor(modelItem => product.Name)</a></h4>
-                                            <p></p>
-                                            <p>@Html.DisplayFor(modelItem => product.StockQuantity)</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
+                                            <h5><a asp-action="Details" asp-route-id="@product.ProductID"> @Html.DisplayFor(modelItem => product.Name)</a></h5>
+                                            <p class="text-sm">@Html.DisplayFor(modelItem => product.Description)</p>
+                                            <div class="d-flex justify-content-between">
                                                 <p class="text-dark fs-5 fw-bold mb-0"> @Html.DisplayFor(model => product.PricePerUnit) €</p>
-                                                <a href="#" class="btn border border-primary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Ajouter au panier</a>
+                                                <p><span>Stock: </span>@Html.DisplayFor(modelItem => product.StockQuantity)</p>
+
                                             </div>
+                                            <form asp-controller="Order" asp-action="AddDetail" method="post">
+                                                <div class="mb-2">
+                                                    <input type="hidden" value="@product.ProductID" name="ProductID" />
+                                                    <div class="form-group">
+                                                        <label for="StockQuantity">Quantity</label>
+                                                        <input type="number" class="form-control w-50" id="StockQuantity" name="StockQuantity" value="1" min="1" />
+                                                    </div>
+                                                </div>
+                                                <button type="submit" class="btn btn-outline-primary border border-primary px-3"><i class="fa fa-shopping-bag me-2 text-primary"></i> Ajouter au panier</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                             }
+                            <!--End foreach loop-->
 
                             <div class="col-12">
                                 <div class="pagination d-flex justify-content-center mt-5">

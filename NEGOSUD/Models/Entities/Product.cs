@@ -24,6 +24,8 @@ namespace NEGOSUD.Models.Entities
         [NotMapped]
         public IFormFile? ImageFile { get; set; }
         public string ImageUrl { get; set; }
+        public string? Description { get; set; }
+
 
         // Navigation properties
         [ValidateNever]
