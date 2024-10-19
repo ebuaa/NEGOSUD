@@ -12,9 +12,19 @@
                 <div class="row g-4">
                     <div class="col-xl-3">
                         <div class="input-group w-100 mx-auto d-flex">
-                            <input type="search" class="form-control p-3" placeholder="mots-clés" aria-describedby="search-icon-1">
-                            <span id="search-icon-1" class="input-group-text p-3"><i class="bi bi-search"></i></span>
+                            <!--Search mots form-->
+                            <form method="get" action="@Url.Action("Index", "Product")">
+                                <div class="input-group w-100 mx-auto d-flex">
+                                    <input type="search" name="search" value="@ViewBag.search" class="form-control p-3" placeholder="mots-clés" aria-describedby="search-icon-1">
+                                    <button type="submit" class="input-group-text p-3" id="search-icon-1">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </div>
+                            </form>
                         </div>
+                    </div>
+                    <div class="col-9 d-flex align-items-center justify-content-end">
+                        <a href="@Url.Action("Index", "Product")" class="btn btn-lg bg-gradient btn-danger">Annuler les filtres</a>
                     </div>
                     <div class="col-6"></div>
                     <div class="col-xl-3">
@@ -38,32 +48,32 @@
                                     <ul class="list-unstyled fruite-categorie">
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-wine-bottle me-2"></i>Rouge</a>
-                                                <span>(3)</span>
+                                                <a href="@Url.Action("Index", new { category = "Rouge" })"><i class="fas fa-wine-bottle me-2"></i>Rouge</a>
+                                                <!-- <span>(3)</span> -->
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-wine-bottle me-2"></i>Blanc</a>
-                                                <span>(5)</span>
+                                                <a href="@Url.Action("Index", new { category = "Blanc" })"><i class="fas fa-wine-bottle me-2"></i>Blanc</a>
+                                                <!--<span>(5)</span>-->
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-wine-bottle me-2"></i>Rosé</a>
-                                                <span>(2)</span>
+                                                <a href="@Url.Action("Index", new { category = "Rosé" })"><i class="fas fa-wine-bottle me-2"></i>Rosé</a>
+                                                <!-- <span>2</span> -->
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-wine-bottle me-2"></i>Champagne</a>
-                                                <span>(8)</span>
+                                                <a href="@Url.Action("Index", new { category = "Champagne" })"><i class="fas fa-wine-bottle me-2"></i>Champagne</a>
+                                                <!-- <span>8</span> -->
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-wine-bottle me-2"></i>Spiritueux</a>
-                                                <span>(5)</span>
+                                                <a href="@Url.Action("Index", new { category = "Spiritueux" })"><i class="fas fa-wine-bottle me-2"></i>Spiritueux</a>
+                                                <!-- <span>4</span> -->
                                             </div>
                                         </li>
                                     </ul>
