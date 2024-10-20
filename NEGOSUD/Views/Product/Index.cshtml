@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<NEGOSUD.Models.Entities.Product>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Produits";
 }
 
 <!-- Boutique de Vins Start-->
 <div class="container-fluid fruite h-100">
-    <div class="container mb-4  pt-xl-1 mb-5 pb-5">
+    <div class="container mb-4  pt-xl-1 mb-5 mb-xl-0 pb-xl-0 pb-5">
         <h1 class="mb-4">Produits</h1>
         <div class="row g-4">
             <div class="col-lg-12">
@@ -164,18 +164,17 @@
                                 </div>
                             }
                             <!--End foreach loop-->
-
-                            <div class="col-12">
-                                <div class="pagination d-flex justify-content-center pb-4 my-5">
-                                    <a href="#" class="rounded">&laquo;</a>
-                                    <a href="#" class="active rounded">1</a>
-                                    <a href="#" class="rounded">2</a>
-                                    <a href="#" class="rounded">3</a>
-                                    <a href="#" class="rounded">4</a>
-                                    <a href="#" class="rounded">5</a>
-                                    <a href="#" class="rounded">6</a>
-                                    <a href="#" class="rounded">&raquo;</a>
-                                </div>
+                            <div class="my-5 my-xl-2">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination">
+                                    @for (int i = 1; i <= Math.Ceiling((double)ViewBag.TotalItems / ViewBag.PageSize); i++)
+                                    {
+                                        <li class="page-item @(i == ViewBag.PageNumber ? "active" : "")">
+                                            <a class="page-link" href="@Url.Action("Index", new { search = ViewBag.Search, category = ViewBag.Category, sortProduct = ViewBag.SortProduct, pageNumber = i, pageSize = ViewBag.PageSize })">@i</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </nav>
                             </div>
                         </div>
                     </div>

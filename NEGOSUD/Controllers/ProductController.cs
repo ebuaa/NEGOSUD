@@ -20,27 +20,28 @@ namespace NEGOSUD.Controllers
         }
 
         // GET: Products
-        public async Task<IActionResult> Index(string? search, string? category, string? sortProduct)
+        [Route("Products")]
+        public async Task<IActionResult> Index(string? search, string? category, string? sortProduct, int pageNumber = 1, int pageSize = 10)
         {
-            //Basic query
+            // Basic query
             var productsQuery = _context.Products
                 .Include(p => p.Category)
                 .Include(p => p.Supplier)
                 .AsQueryable();
 
-            //Search
+            // Search
             if (!string.IsNullOrEmpty(search))
             {
                 productsQuery = productsQuery.Where(p => p.Name.Contains(search) || p.Description.Contains(search) || p.Category.Name.Contains(search));
             }
 
-            //Category filter 
+            // Category filter 
             if (!string.IsNullOrEmpty(category))
             {
                 productsQuery = productsQuery.Where(p => p.Category.Name == category);
             }
 
-            //Sort
+            // Sort
             switch (sortProduct)
             {
                 case "name_asc":
@@ -66,18 +67,24 @@ namespace NEGOSUD.Controllers
                     break;
             }
 
+            // Pagination
+            var totalItems = await productsQuery.CountAsync();
+            var products = await productsQuery
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
 
-            //execute query
-            var products = await productsQuery.ToListAsync();
-
-            //return view
+            // Return view
             ViewBag.Search = search;
             ViewBag.Category = category;
             ViewBag.SortProduct = sortProduct;
+            ViewBag.PageNumber = pageNumber;
+            ViewBag.PageSize = pageSize;
+            ViewBag.TotalItems = totalItems;
             return View(products);
         }
 
-        // GET: Products/Details/5
+        [Route("Products/Details/{id?}")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
