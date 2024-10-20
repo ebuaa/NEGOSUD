@@ -29,13 +29,20 @@
                     <div class="col-6"></div>
                     <div class="col-xl-3">
                         <div class="bg-light ps-3 py-3 rounded d-flex flex-column justify-content-between mb-4">
-                            <label for="tri">Tri par défaut :</label>
-                            <select id="tri" name="trilist" class="form-select form-select-md bg-light me-3" form="triform">
-                                <option value="rien">Rien</option>
-                                <option value="popularite">Popularité</option>
-                                <option value="biologique">Biologique</option>
-                                <option value="fantastique">Fantastique</option>
-                            </select>
+                            <!-- Example single danger button -->
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Tri par défaut :
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="@Url.Action("Index", new { sortProduct = "name_asc" })">Nom: A à Z</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("Index", new { sortProduct = "name_desc" })">Nom: Z à A</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("Index", new { sortProduct = "price_asc" })">Prix: Bas à Haut</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("Index", new { sortProduct = "price_desc" })">Prix: Haut à Bas</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("Index", new { sortProduct = "" })">Tri par défaut</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

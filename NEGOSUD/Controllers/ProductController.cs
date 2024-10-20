@@ -20,7 +20,7 @@ namespace NEGOSUD.Controllers
         }
 
         // GET: Products
-        public async Task<IActionResult> Index(string? search, string? category)
+        public async Task<IActionResult> Index(string? search, string? category, string? sortProduct)
         {
             //Basic query
             var productsQuery = _context.Products
@@ -31,7 +31,7 @@ namespace NEGOSUD.Controllers
             //Search
             if (!string.IsNullOrEmpty(search))
             {
-                productsQuery = productsQuery.Where(p => p.Name.Contains(search) || p.Description.Contains(search) ||p.Category.Name.Contains(search));
+                productsQuery = productsQuery.Where(p => p.Name.Contains(search) || p.Description.Contains(search) || p.Category.Name.Contains(search));
             }
 
             //Category filter 
@@ -39,12 +39,35 @@ namespace NEGOSUD.Controllers
             {
                 productsQuery = productsQuery.Where(p => p.Category.Name == category);
             }
+
+            //Sort
+            switch (sortProduct)
+            {
+                case "name_asc":
+                    productsQuery = productsQuery.OrderBy(p => p.Name);
+                    break;
+                case "name_desc":
+                    productsQuery = productsQuery.OrderByDescending(p => p.Name);
+                    break;
+                case "price_asc":
+                    productsQuery = productsQuery.OrderBy(p => p.PricePerUnit);
+                    break;
+                case "price_desc":
+                    productsQuery = productsQuery.OrderByDescending(p => p.PricePerUnit);
+                    break;
+                default:
+                    productsQuery = productsQuery.OrderBy(p => p.Name); // Default sorting
+                    break;
+            }
+
+
             //execute query
             var products = await productsQuery.ToListAsync();
 
             //return view
             ViewBag.Search = search;
             ViewBag.Category = category;
+            ViewBag.SortProduct = sortProduct;
             return View(products);
         }
 
