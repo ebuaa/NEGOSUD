@@ -9,7 +9,7 @@
 -->
 
 <!-- Single Product Start -->
-<div class="container-fluid pb-5">
+<div class="container-fluid pb-5 pt-xl-2 ">
     <div class="container py-5">
         <div class="row g-4 mb-5">
             <div class="col-lg-8 col-xl-9">
@@ -34,20 +34,18 @@
                         </div>
                         <p class="mb-4">Le Lorem Ipsum généré est donc toujours exempt de répétition, d'humour injecté ou de mots non caractéristiques, etc.</p>
                         <p class="mb-4">Suspendisse ultricies nisi vel quam suscipit. Sabertooth peacock flounder; chain pickerel hatchetfish, pencilfish snailfish</p>
-                        <div class="input-group quantity mb-5" style="width: 100px;">
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                    <i class="bi bi-dash"></i>
-                                </button>
+                        
+                        <form asp-controller="Order" asp-action="AddDetail" method="post">
+                            <div class="mb-2">
+                            <input type="hidden" value="@Model.ProductID" name="ProductID" />
+                            <div class="form-group">
+                                <label for="StockQuantity">Quantity</label>
+                                <input type="number" class="form-control w-50" id="StockQuantity" name="StockQuantity" value="1" min="1" />
                             </div>
-                            <input type="text" class="form-control form-control-sm text-center border-0" value="1">
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                    <i class="bi bi-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <a href="#" class="btn border border-primary bg-primary rounded-pill px-4 py-2 mb-4 text-white"><i class="fa fa-shopping-bag me-2 text-primary"></i> Ajouter au panier</a>
+                    </div>
+                            <button type="submit" class="btn border border-primary bg-primary rounded-pill px-4 py-2 mb-4 text-white"><i class="bi bi-cart-plus"></i> Ajouter au panier</button>
+                        </form>
+
                     </div>
                 </div>
             </div>
