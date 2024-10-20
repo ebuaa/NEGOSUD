@@ -33,5 +33,52 @@
         }
     });
 
+    // Products Carousel
+    $('.products-carousel').owlCarousel({
+        loop: true,
+        margin: 10,
+        autoplay: true,
+        autoplayHoverPause: false,
+        autoplayTimeout: 3000,
+        nav: false,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 2
+            },
+            1000: {
+                items: 3
+            },
+            1200: {
+                items: 4
+            }
+        }
+    });
+
+    // Testimonials Carousel
+    $('.testimonials-carousel').owlCarousel({
+        loop: true,
+        margin: 10,
+        autoplay: true,
+        autoplayHoverPause: false,
+        autoplayTimeout: 5000,
+        nav: false,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 1
+            },
+            1000: {
+                items: 2
+            },
+            1200: {
+                items: 3
+            }
+        }
+    });
 
 })(jQuery);

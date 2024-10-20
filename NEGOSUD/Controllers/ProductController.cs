@@ -55,6 +55,12 @@ namespace NEGOSUD.Controllers
                 case "price_desc":
                     productsQuery = productsQuery.OrderByDescending(p => p.PricePerUnit);
                     break;
+                case "year_asc":
+                    productsQuery = productsQuery.OrderBy(p => p.Year);
+                    break;
+                case "year_desc":
+                    productsQuery = productsQuery.OrderByDescending(p => p.Year);
+                    break;
                 default:
                     productsQuery = productsQuery.OrderBy(p => p.Name); // Default sorting
                     break;

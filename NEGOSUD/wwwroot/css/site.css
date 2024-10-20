@@ -27,7 +27,7 @@ body {
 }
 main {
 /*  flex: 1;*/
-margin-bottom: 60px;
+/*margin-bottom: 60px;*/
 }
 
 /*Custom CSS*/
@@ -118,7 +118,5 @@ margin-bottom: 60px;
 .copyright {
     color: #b0b0b0;
 }
-   
-
 
 

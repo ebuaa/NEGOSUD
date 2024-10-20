@@ -24,6 +24,8 @@
                     <div class="col-lg-6">
                         <h4 class="fw-bold mb-3"> @Html.DisplayFor(model => model.Name)</h4>
                         <p class="mb-3">Catégorie: @Html.DisplayFor(model => model.Category.Name)</p>
+                        <p>Année: @Html.DisplayFor(Model => Model.Year)</p>
+                        <p>Stock: @Html.DisplayFor(model => model.StockQuantity)</p>
                         <h5 class="fw-bold mb-3">@Html.DisplayFor(model => model.PricePerUnit) €</h5>
                         <div class="d-flex mb-4">
                             <i class="fa fa-star text-secondary"></i>

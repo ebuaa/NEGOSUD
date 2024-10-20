@@ -5,7 +5,7 @@
 
 <!-- Boutique de Vins Start-->
 <div class="container-fluid fruite h-100">
-    <div class="container mb-4  pt-xl-1">
+    <div class="container mb-4  pt-xl-1 mb-5 pb-5">
         <h1 class="mb-4">Produits</h1>
         <div class="row g-4">
             <div class="col-lg-12">
@@ -31,7 +31,7 @@
                         <div class="bg-light ps-3 py-3 rounded d-flex flex-column justify-content-between mb-4">
                             <!-- Example single danger button -->
                             <div class="btn-group">
-                                <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                     Tri par défaut :
                                 </button>
                                 <ul class="dropdown-menu">
@@ -39,6 +39,8 @@
                                     <li><a class="dropdown-item" href="@Url.Action("Index", new { sortProduct = "name_desc" })">Nom: Z à A</a></li>
                                     <li><a class="dropdown-item" href="@Url.Action("Index", new { sortProduct = "price_asc" })">Prix: Bas à Haut</a></li>
                                     <li><a class="dropdown-item" href="@Url.Action("Index", new { sortProduct = "price_desc" })">Prix: Haut à Bas</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("Index", new { sortProduct = "year_asc" })">Année: Bas à Haut</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("Index", new { sortProduct = "year_desc" })">Année: Haut à Bas</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="@Url.Action("Index", new { sortProduct = "" })">Tri par défaut</a></li>
                                 </ul>
@@ -134,12 +136,14 @@
                                         <div class="fruite-img">
                                             <img src="https://picsum.photos/300" class="img-fluid rounded-top w-100" alt="">
                                         </div>
-                                        <div class="text-white bg-primary bg-gradient px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">
+                                        <div class="text-white bg-primary bg-gradient px-3 py-2 rounded position-absolute" style="top: 10px; left: 10px;">
                                             @Html.DisplayFor(modelItem => product.Category.Name)
+                                        </div>
+                                        <div class="text-white bg-dark bg-gradient px-3 py-2 rounded position-absolute" style="top: 10px; left: 95px;">
+                                            @Html.DisplayFor(modelItem => product.Year)
                                         </div>
                                         <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                             <h5><a asp-action="Details" asp-route-id="@product.ProductID"> @Html.DisplayFor(modelItem => product.Name)</a></h5>
-                                            <p class="text-sm">@Html.DisplayFor(modelItem => product.Description)</p>
                                             <div class="d-flex justify-content-between">
                                                 <p class="text-dark fs-5 fw-bold mb-0"> @Html.DisplayFor(model => product.PricePerUnit) €</p>
                                                 <p><span>Stock: </span>@Html.DisplayFor(modelItem => product.StockQuantity)</p>
@@ -162,7 +166,7 @@
                             <!--End foreach loop-->
 
                             <div class="col-12">
-                                <div class="pagination d-flex justify-content-center mt-5">
+                                <div class="pagination d-flex justify-content-center pb-4 my-5">
                                     <a href="#" class="rounded">&laquo;</a>
                                     <a href="#" class="active rounded">1</a>
                                     <a href="#" class="rounded">2</a>
