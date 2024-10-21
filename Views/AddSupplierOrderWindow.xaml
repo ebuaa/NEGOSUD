@@ -35,7 +35,7 @@
 
         <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,105" Width="200">
             <Button Content="Enregistrer" Click="btnSave_Click" Width="100" Margin="5"/>
-            <Button Content="Annuler" Click="btnCancel_Click" Width="100" Margin="5"/>
+            <Button Content="Annuler" Click="btnCancel_Click" Width="83" Margin="5"/>
         </StackPanel>
     </Grid>
 </Window>
