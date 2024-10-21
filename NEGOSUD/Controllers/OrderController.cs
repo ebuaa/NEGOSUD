@@ -97,7 +97,7 @@ namespace NEGOSUD.Controllers
             HttpContext.Session.Set(sessionKey, model);
 
             // Redirect back to the Create view to show or update the order
-            return RedirectToAction("Index", "Products");
+            return RedirectToAction("Index", "Product");
         }
 
         [HttpGet]
@@ -119,7 +119,7 @@ namespace NEGOSUD.Controllers
 
             if (model == null || model.OrderDetails.Count == 0)
             {
-                return RedirectToAction("Index", "Products");
+                return RedirectToAction("Index", "Product");
             }
             return View(model);
         }
@@ -138,7 +138,7 @@ namespace NEGOSUD.Controllers
             var model = HttpContext.Session.Get<OrderViewModel>(sessionKey);
             if (model == null || model.OrderDetails.Count == 0)
             {
-                return RedirectToAction("Index", "Products");
+                return RedirectToAction("Index", "Product");
             }
 
             // Create a new Order entity

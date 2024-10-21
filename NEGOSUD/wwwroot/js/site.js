@@ -15,24 +15,70 @@
     };
     spinner(0);
 
-    // Product Quantity
-    $('.quantity button').on('click', function () {
-        var button = $(this);
-        var oldValue = button.parent().parent().find('input').val();
-        if (button.hasClass('btn-plus')) {
-            var newVal = parseFloat(oldValue) + 1;
-        } else {
-            if (oldValue > 0) {
-                var newVal = parseFloat(oldValue) - 1;
+
+    // Fixed Navbar
+    $(window).scroll(function () {
+        if ($(window).width() < 992) {
+            if ($(this).scrollTop() > 55) {
+                $('.fixed-top').addClass('shadow');
             } else {
-                newVal = 0;
+                $('.fixed-top').removeClass('shadow');
+            }
+        } else {
+            if ($(this).scrollTop() > 55) {
+                $('.fixed-top').addClass('shadow').css('top', -55);
+            } else {
+                $('.fixed-top').removeClass('shadow').css('top', 0);
             }
         }
-        button.parent().parent().find('input').val(newVal);
     });
 
+    // Products Carousel
+    $('.products-carousel').owlCarousel({
+        loop: true,
+        margin: 10,
+        autoplay: true,
+        autoplayHoverPause: false,
+        autoplayTimeout: 3000,
+        nav: false,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 2
+            },
+            1000: {
+                items: 3
+            },
+            1200: {
+                items: 4
+            }
+        }
+    });
 
-  
+    // Testimonials Carousel
+    $('.testimonials-carousel').owlCarousel({
+        loop: true,
+        margin: 10,
+        autoplay: true,
+        autoplayHoverPause: false,
+        autoplayTimeout: 5000,
+        nav: false,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 1
+            },
+            1000: {
+                items: 2
+            },
+            1200: {
+                items: 3
+            }
+        }
+    });
 
 })(jQuery);
-

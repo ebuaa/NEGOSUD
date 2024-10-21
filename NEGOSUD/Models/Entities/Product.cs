@@ -10,6 +10,8 @@ namespace NEGOSUD.Models.Entities
         public decimal PricePerUnit { get; set; }
         public int StockQuantity { get; set; }
         public int MinimumStock { get; set; }
+        public int Year { get; set; }
+        public DateTime? CreateDate { get; set; }
 
         // Foreign Key
         public int CategoryID { get; set; } // References Category

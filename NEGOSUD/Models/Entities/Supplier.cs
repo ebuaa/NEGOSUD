@@ -9,7 +9,7 @@ namespace NEGOSUD.Models.Entities
         public string ContactPerson { get; set; }
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
-        //NAvigation Property
+        //Navigation Property
         public ICollection<Product>? Products { get; set; }
     }
 }
