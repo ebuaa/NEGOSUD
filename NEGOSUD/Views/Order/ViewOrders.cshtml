@@ -1,0 +1,29 @@
+﻿@model IEnumerable<NEGOSUD.Models.Entities.Order>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Mes Commandes";
+}
+
+<h1>Mes Commandes</h1>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+			<th>Order ID</th>
+			<th>Order Date</th>
+		
+			<th>Total Amount</th>
+		</tr>
+    </thead>
+	<tbody>
+		@foreach (var order in Model)
+		{
+			<tr>
+				<td>@order.OrderID</td>
+				<td>@order.OrderDate</td>
+				<td>@order.TotalAmount €</td>
+			</tr>
+		}
+</table>
