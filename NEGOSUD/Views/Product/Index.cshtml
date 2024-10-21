@@ -97,31 +97,7 @@
                                 </div>
                                 -->
                             </div>
-                            <div class="col-lg-12">
-                                <div class="mb-3">
-                                    <h4>Options</h4>
-                                    <div class="mb-2">
-                                        <input type="radio" class="me-2" id="Options-1" name="Options-1" value="Biologique">
-                                        <label for="Options-1"> Biologique</label>
-                                    </div>
-                                    <div class="mb-2">
-                                        <input type="radio" class="me-2" id="Options-2" name="Options-1" value="Frais">
-                                        <label for="Options-2"> Frais</label>
-                                    </div>
-                                    <div class="mb-2">
-                                        <input type="radio" class="me-2" id="Options-3" name="Options-1" value="En solde">
-                                        <label for="Options-3"> En solde</label>
-                                    </div>
-                                    <div class="mb-2">
-                                        <input type="radio" class="me-2" id="Options-4" name="Options-1" value="Remise">
-                                        <label for="Options-4"> Remise</label>
-                                    </div>
-                                    <div class="mb-2">
-                                        <input type="radio" class="me-2" id="Options-5" name="Options-1" value="Expiré">
-                                        <label for="Options-5"> Expiré</label>
-                                    </div>
-                                </div>
-                            </div>
+                          
                         </div>
                     </div>
 
@@ -134,12 +110,12 @@
                                 <div class="col-md-6 col-lg-6 col-xl-4">
                                     <div class="rounded position-relative fruite-item card">
                                         <div class="fruite-img">
-                                            <img src="https://picsum.photos/300" class="img-fluid rounded-top w-100" alt="">
+                                            <img src="@product.ImageUrl" class="img-fluid rounded-top w-100" alt="">
                                         </div>
                                         <div class="text-white bg-primary bg-gradient px-3 py-2 rounded position-absolute" style="top: 10px; left: 10px;">
                                             @Html.DisplayFor(modelItem => product.Category.Name)
                                         </div>
-                                        <div class="text-white bg-dark bg-gradient px-3 py-2 rounded position-absolute" style="top: 10px; left: 95px;">
+                                        <div class="text-white bg-dark bg-gradient px-3 py-2 rounded position-absolute" style="top: 10px; left: 210px;">
                                             @Html.DisplayFor(modelItem => product.Year)
                                         </div>
                                         <div class="p-4 border border-secondary border-top-0 rounded-bottom">

@@ -86,14 +86,12 @@
                    
                         <div class="rounded position-relative fruite-item card">
                             <div class="fruite-img">
-                                <img src="https://picsum.photos/300" class="img-fluid rounded-top w-100" alt="">
+                                <img src="@product.ImageUrl" class="img-fluid rounded-top w-100" alt="">
                             </div>
                             <div class="text-white bg-primary bg-gradient px-3 py-2 rounded position-absolute" style="top: 10px; left: 10px;">
                                 @Html.DisplayFor(modelItem => product.Category.Name)
                             </div>
-                            <div class="text-white bg-dark bg-gradient px-3 py-2 rounded position-absolute" style="top: 10px; left: 95px;">
-                                @Html.DisplayFor(modelItem => product.Year)
-                            </div>
+                          
                             <div class="text-white bg-warning bg-gradient px-3 py-2 rounded position-absolute" style="top: 10px; left: 170px;">
                                 Nouveau
                             </div>

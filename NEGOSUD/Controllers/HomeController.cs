@@ -22,7 +22,7 @@ namespace NEGOSUD.Controllers
             var recentProducts = _context.Products
                                         .Include(p => p.Category)
                                         .OrderByDescending(p => p.CreateDate)
-                                        .Take(6)
+                                        .Take(8)
                                         .ToList();
             return View(recentProducts);
         }
