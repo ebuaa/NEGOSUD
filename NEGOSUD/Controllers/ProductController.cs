@@ -21,7 +21,7 @@ namespace NEGOSUD.Controllers
 
         // GET: Products
         [Route("Products")]
-        public async Task<IActionResult> Index(string? search, string? category, string? sortProduct, int pageNumber = 1, int pageSize = 10)
+        public async Task<IActionResult> Index(string? search, string? category, string? sortProduct, int pageNumber = 1, int pageSize = 9)
         {
             // Basic query
             var productsQuery = _context.Products

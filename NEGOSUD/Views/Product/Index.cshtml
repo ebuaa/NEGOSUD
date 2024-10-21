@@ -79,12 +79,6 @@
                                                 <!-- <span>8</span> -->
                                             </div>
                                         </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="@Url.Action("Index", new { category = "Spiritueux" })"><i class="fas fa-wine-bottle me-2"></i>Spiritueux</a>
-                                                <!-- <span>4</span> -->
-                                            </div>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -140,7 +134,7 @@
                                 </div>
                             }
                             <!--End foreach loop-->
-                            <div class="my-5 my-xl-2">
+                            <div class="my-5 my-xl-2 py-2">
                             <nav aria-label="Page navigation">
                                 <ul class="pagination">
                                     @for (int i = 1; i <= Math.Ceiling((double)ViewBag.TotalItems / ViewBag.PageSize); i++)
