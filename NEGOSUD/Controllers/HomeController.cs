@@ -1,5 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using NEGOSUD.Data;
 using NEGOSUD.Models;
 
 namespace NEGOSUD.Controllers
@@ -7,15 +9,22 @@ namespace NEGOSUD.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var recentProducts = _context.Products
+                                        .Include(p => p.Category)
+                                        .OrderByDescending(p => p.CreateDate)
+                                        .Take(6)
+                                        .ToList();
+            return View(recentProducts);
         }
 
         public IActionResult Privacy()

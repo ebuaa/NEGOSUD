@@ -1,0 +1,15 @@
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace NEGOSUD.Models.Entities
+{
+    public class Supplier 
+    {
+        public int SupplierID { get; set; } // Primary Key
+        public string CompanyName { get; set; }
+        public string ContactPerson { get; set; }
+        public string Address { get; set; }
+        public string PhoneNumber { get; set; }
+        //Navigation Property
+        public ICollection<Product>? Products { get; set; }
+    }
+}

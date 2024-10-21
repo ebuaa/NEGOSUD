@@ -1,0 +1,187 @@
+﻿@model IEnumerable<NEGOSUD.Models.Entities.Product>
+@{
+    ViewData["Title"] = "Produits";
+}
+
+<!-- Boutique de Vins Start-->
+<div class="container-fluid fruite h-100">
+    <div class="container mb-4  pt-xl-1 mb-5 mb-xl-0 pb-xl-0 pb-5">
+        <h1 class="mb-4">Produits</h1>
+        <div class="row g-4">
+            <div class="col-lg-12">
+                <div class="row g-4">
+                    <div class="col-xl-3">
+                        <div class="input-group w-100 mx-auto d-flex">
+                            <!--Search mots form-->
+                            <form method="get" action="@Url.Action("Index", "Product")">
+                                <div class="input-group w-100 mx-auto d-flex">
+                                    <input type="search" name="search" value="@ViewBag.search" class="form-control p-3" placeholder="mots-clés" aria-describedby="search-icon-1">
+                                    <button type="submit" class="input-group-text p-3" id="search-icon-1">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-9 d-flex align-items-center justify-content-end">
+                        <a href="@Url.Action("Index", "Product")" class="btn btn-lg btn-danger"><i class="bi bi-arrow-clockwise me-1"></i>Annuler les filtres</a>
+                    </div>
+                    <div class="col-6"></div>
+                    <div class="col-xl-3">
+                        <div class="bg-light ps-3 py-3 rounded d-flex flex-column justify-content-between mb-4">
+                            <!-- Example single danger button -->
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Tri par défaut :
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="@Url.Action("Index", new { sortProduct = "name_asc" })">Nom: A à Z</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("Index", new { sortProduct = "name_desc" })">Nom: Z à A</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("Index", new { sortProduct = "price_asc" })">Prix: Bas à Haut</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("Index", new { sortProduct = "price_desc" })">Prix: Haut à Bas</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("Index", new { sortProduct = "year_asc" })">Année: Bas à Haut</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("Index", new { sortProduct = "year_desc" })">Année: Haut à Bas</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("Index", new { sortProduct = "" })">Tri par défaut</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-3">
+                        <div class="row g-4">
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <h4>Catégories</h4>
+                                    <ul class="list-unstyled fruite-categorie">
+                                        <li>
+                                            <div class="d-flex justify-content-between fruite-name">
+                                                <a href="@Url.Action("Index", new { category = "Rouge" })"><i class="fas fa-wine-bottle me-2"></i>Rouge</a>
+                                                <!-- <span>(3)</span> -->
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="d-flex justify-content-between fruite-name">
+                                                <a href="@Url.Action("Index", new { category = "Blanc" })"><i class="fas fa-wine-bottle me-2"></i>Blanc</a>
+                                                <!--<span>(5)</span>-->
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="d-flex justify-content-between fruite-name">
+                                                <a href="@Url.Action("Index", new { category = "Rosé" })"><i class="fas fa-wine-bottle me-2"></i>Rosé</a>
+                                                <!-- <span>2</span> -->
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="d-flex justify-content-between fruite-name">
+                                                <a href="@Url.Action("Index", new { category = "Champagne" })"><i class="fas fa-wine-bottle me-2"></i>Champagne</a>
+                                                <!-- <span>8</span> -->
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="d-flex justify-content-between fruite-name">
+                                                <a href="@Url.Action("Index", new { category = "Spiritueux" })"><i class="fas fa-wine-bottle me-2"></i>Spiritueux</a>
+                                                <!-- <span>4</span> -->
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <!-- 
+                                <div class="mb-3">
+                                    <h4 class="mb-2">Prix</h4>
+                                    <input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="0" max="500" value="0" oninput="amount.value=rangeInput.value">
+                                    <output id="amount" name="amount" min-velue="0" max-value="500" for="rangeInput">0</output>
+                                </div>
+                                -->
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <h4>Options</h4>
+                                    <div class="mb-2">
+                                        <input type="radio" class="me-2" id="Options-1" name="Options-1" value="Biologique">
+                                        <label for="Options-1"> Biologique</label>
+                                    </div>
+                                    <div class="mb-2">
+                                        <input type="radio" class="me-2" id="Options-2" name="Options-1" value="Frais">
+                                        <label for="Options-2"> Frais</label>
+                                    </div>
+                                    <div class="mb-2">
+                                        <input type="radio" class="me-2" id="Options-3" name="Options-1" value="En solde">
+                                        <label for="Options-3"> En solde</label>
+                                    </div>
+                                    <div class="mb-2">
+                                        <input type="radio" class="me-2" id="Options-4" name="Options-1" value="Remise">
+                                        <label for="Options-4"> Remise</label>
+                                    </div>
+                                    <div class="mb-2">
+                                        <input type="radio" class="me-2" id="Options-5" name="Options-1" value="Expiré">
+                                        <label for="Options-5"> Expiré</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-9">
+                        <div class="row g-4 justify-content-start">
+
+                            <!-- Loop of the products -->
+                            @foreach (var product in Model)
+                            {
+                                <div class="col-md-6 col-lg-6 col-xl-4">
+                                    <div class="rounded position-relative fruite-item card">
+                                        <div class="fruite-img">
+                                            <img src="https://picsum.photos/300" class="img-fluid rounded-top w-100" alt="">
+                                        </div>
+                                        <div class="text-white bg-primary bg-gradient px-3 py-2 rounded position-absolute" style="top: 10px; left: 10px;">
+                                            @Html.DisplayFor(modelItem => product.Category.Name)
+                                        </div>
+                                        <div class="text-white bg-dark bg-gradient px-3 py-2 rounded position-absolute" style="top: 10px; left: 95px;">
+                                            @Html.DisplayFor(modelItem => product.Year)
+                                        </div>
+                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                            <h5><a asp-action="Details" asp-route-id="@product.ProductID"> @Html.DisplayFor(modelItem => product.Name)</a></h5>
+                                            <div class="d-flex justify-content-between">
+                                                <p class="text-dark fs-5 fw-bold mb-0"> @Html.DisplayFor(model => product.PricePerUnit) €</p>
+                                                <p><span>Stock: </span>@Html.DisplayFor(modelItem => product.StockQuantity)</p>
+
+                                            </div>
+                                            <form asp-controller="Order" asp-action="AddDetail" method="post">
+                                                <div class="mb-2">
+                                                    <input type="hidden" value="@product.ProductID" name="ProductID" />
+                                                    <div class="form-group">
+                                                        <label for="StockQuantity">Quantity</label>
+                                                        <input type="number" class="form-control w-50" id="StockQuantity" name="StockQuantity" value="1" min="1" />
+                                                    </div>
+                                                </div>
+                                                <button type="submit" class="btn btn-outline-primary border border-primary px-3"><i class="bi bi-cart-plus"></i> Ajouter au panier</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            <!--End foreach loop-->
+                            <div class="my-5 my-xl-2">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination">
+                                    @for (int i = 1; i <= Math.Ceiling((double)ViewBag.TotalItems / ViewBag.PageSize); i++)
+                                    {
+                                        <li class="page-item @(i == ViewBag.PageNumber ? "active" : "")">
+                                            <a class="page-link" href="@Url.Action("Index", new { search = ViewBag.Search, category = ViewBag.Category, sortProduct = ViewBag.SortProduct, pageNumber = i, pageSize = ViewBag.PageSize })">@i</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </nav>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Boutique de Vins End-->
