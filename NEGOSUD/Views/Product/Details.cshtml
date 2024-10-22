@@ -32,14 +32,13 @@
                             <i class="fa fa-star text-secondary"></i>
                             <i class="fa fa-star"></i>
                         </div>
-                        <p class="mb-4">@Html.DisplayFor(Model => Model.Description)</p>
+                        <p class="mb-4">@Html.DisplayFor(Model => Model.Description).</p>
                         
                         
                         <form asp-controller="Order" asp-action="AddDetail" method="post">
                             <div class="mb-2">
                             <input type="hidden" value="@Model.ProductID" name="ProductID" />
                             <div class="form-group">
-                                <label for="StockQuantity">Quantity</label>
                                 <input type="number" class="form-control w-50" id="StockQuantity" name="StockQuantity" value="1" min="1" />
                             </div>
                     </div>

@@ -6,18 +6,24 @@
 @{
 }
 
-<h1>Cart</h1>
+<h1>Panier</h1>
+
+<form asp-action="CancelOrder" method="post" class="py-3">
+	<div class="form-group">
+		<input type="submit" value="Annuler" class="btn btn-danger rounded" />
+	</div>
+</form>
+
 
 <!--Form to finalise and create the order-->
-
 <form asp-action="PlaceOrder" method="post">
-	<h3>Table Order</h3>
+	<h3>Commande</h3>
 	<table class="table table-bordered">
 		<thead>
 			<tr>
-				<th>Product</th>
-				<th>Quantity</th>
-				<th>Price</th>
+				<th>Produit</th>
+				<th>Quantité</th>
+				<th>Prix</th>
 				<th>Total</th>
 			</tr>
 		</thead>
@@ -42,3 +48,4 @@
 		<input type="submit" value="Place Order" class="btn btn-primary" />
 	</div>
 </form>
+

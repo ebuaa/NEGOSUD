@@ -184,5 +184,21 @@ namespace NEGOSUD.Controllers
 
             return View(orders);
         }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult CancelOrder()
+        {
+            var customerId = _userManager.GetUserId(User);
+            if (customerId == null)
+            {
+                return Unauthorized();
+            }
+
+            var sessionKey = $"OrderViewModel_{customerId}";
+            HttpContext.Session.Remove(sessionKey);
+
+            return RedirectToAction("Index", "Product");
+        }
     }
 }
