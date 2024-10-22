@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using Negosud.Models.Entities;
 using Negosud.Services;
@@ -10,11 +11,7 @@ namespace Negosud.Views
         private readonly SupplierService _supplierService;
         private readonly ProductService _productService;
         private readonly SupplierOrderService _supplierOrderService;
-        private SupplierOrder selectedOrder;
-
-        public SupplierService SupplierService { get; }
-        public ProductService ProductService { get; }
-        public SupplierOrderService SupplierOrderService { get; }
+        private SupplierOrder _selectedOrder;
 
         public AddSupplierOrderWindow(SupplierService supplierService, ProductService productService, SupplierOrderService supplierOrderService)
         {
@@ -27,11 +24,10 @@ namespace Negosud.Views
         }
 
         public AddSupplierOrderWindow(SupplierService supplierService, ProductService productService, SupplierOrderService supplierOrderService, SupplierOrder selectedOrder)
+            : this(supplierService, productService, supplierOrderService)
         {
-            SupplierService = supplierService;
-            ProductService = productService;
-            SupplierOrderService = supplierOrderService;
-            this.selectedOrder = selectedOrder;
+            _selectedOrder = selectedOrder;
+            LoadOrderData();
         }
 
         private void LoadSuppliers()
@@ -48,6 +44,23 @@ namespace Negosud.Views
             cmbProducts.ItemsSource = products;
             cmbProducts.DisplayMemberPath = "Name";
             cmbProducts.SelectedValuePath = "ProductID";
+        }
+
+        private void LoadOrderData()
+        {
+            if (_selectedOrder != null)
+            {
+                cmbSuppliers.SelectedValue = _selectedOrder.SupplierID;
+                dpOrderDate.SelectedDate = _selectedOrder.OrderDate;
+                txtTotalAmount.Text = _selectedOrder.TotalAmount.ToString();
+
+                var orderDetail = _selectedOrder.SupplierOrderDetails.FirstOrDefault();
+                if (orderDetail != null)
+                {
+                    cmbProducts.SelectedValue = orderDetail.ProductID;
+                    txtQuantity.Text = orderDetail.Quantity.ToString();
+                }
+            }
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -83,26 +96,61 @@ namespace Negosud.Views
                     return;
                 }
 
-                var newOrder = new SupplierOrder
+                if (_selectedOrder == null) 
                 {
-                    SupplierID = selectedSupplier.SupplierID,
-                    OrderDate = orderDate,
-                    TotalAmount = totalAmount
-                };
+                    var newOrder = new SupplierOrder
+                    {
+                        SupplierID = selectedSupplier.SupplierID,
+                        OrderDate = orderDate,
+                        TotalAmount = totalAmount
+                    };
 
-                var orderDetail = new SupplierOrderDetail
+                    var orderDetail = new SupplierOrderDetail
+                    {
+                        ProductID = selectedProduct.ProductID,
+                        Quantity = quantity
+                    };
+                    newOrder.SupplierOrderDetails.Add(orderDetail);
+
+                    _supplierOrderService.AddSupplierOrder(newOrder);
+
+                    selectedProduct.StockQuantity += quantity;
+                    _productService.UpdateProduct(selectedProduct);
+
+                    MessageBox.Show("Commande fournisseur ajoutée avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else 
                 {
-                    ProductID = selectedProduct.ProductID,
-                    Quantity = quantity
-                };
-                newOrder.SupplierOrderDetails.Add(orderDetail);
+                    _selectedOrder.SupplierID = selectedSupplier.SupplierID;
+                    _selectedOrder.OrderDate = orderDate;
+                    _selectedOrder.TotalAmount = totalAmount;
 
-                _supplierOrderService.AddSupplierOrder(newOrder);
+                    var orderDetail = _selectedOrder.SupplierOrderDetails.FirstOrDefault();
+                    if (orderDetail != null)
+                    {
+                        // Mise à jour des détails existants
+                        orderDetail.ProductID = selectedProduct.ProductID;
+                        orderDetail.Quantity = quantity;
+                    }
+                    else
+                    {
+                        // Ajout d'un nouveau détail si aucun n'existe
+                        _selectedOrder.SupplierOrderDetails.Add(new SupplierOrderDetail
+                        {
+                            ProductID = selectedProduct.ProductID,
+                            Quantity = quantity
+                        });
+                    }
 
-                selectedProduct.StockQuantity += quantity;
-                _productService.UpdateProduct(selectedProduct);
+                    _supplierOrderService.UpdateSupplierOrder(_selectedOrder);
 
-                MessageBox.Show("Commande fournisseur ajoutée avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+                    // Mise à jour du stock
+                    selectedProduct.StockQuantity += quantity;
+                    _productService.UpdateProduct(selectedProduct);
+
+                    MessageBox.Show("Commande fournisseur modifiée avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+
                 this.DialogResult = true;
             }
             catch (Exception ex)
@@ -110,7 +158,6 @@ namespace Negosud.Views
                 MessageBox.Show($"Erreur lors de l'enregistrement de la commande : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {

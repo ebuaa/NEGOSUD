@@ -20,9 +20,10 @@ namespace Negosud.Data
             optionsBuilder.UseSqlServer("Data Source=ALI;Initial Catalog=Negosud;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
         }
 
+        //mapping entre les classes C# et les tables de la base de données) au moment de la création du modèle
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-    
+            //Configuration des propriétés de type decimal
             modelBuilder.Entity<Order>()
                 .Property(o => o.TotalAmount)
                 .HasColumnType("decimal(18,2)");
@@ -47,6 +48,7 @@ namespace Negosud.Data
                 .Property(sod => sod.UnitPrice)
                 .HasColumnType("decimal(18,2)");
 
+            //Relations entre entités avec des clés étrangères
             modelBuilder.Entity<SupplierOrderDetail>()
                 .HasOne(sod => sod.SupplierOrder)
                 .WithMany(so => so.SupplierOrderDetails)
@@ -57,7 +59,8 @@ namespace Negosud.Data
                 .HasOne(sod => sod.Product)
                 .WithMany(p => p.SupplierOrderDetails)
                 .HasForeignKey(sod => sod.ProductID)
-                .OnDelete(DeleteBehavior.Restrict); 
+                .OnDelete(DeleteBehavior.Cascade); 
+                
 
             base.OnModelCreating(modelBuilder);
         }

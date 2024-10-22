@@ -64,6 +64,7 @@ namespace Negosud.Services
 
             if (order != null)
             {
+                _context.SupplierOrderDetails.RemoveRange(order.SupplierOrderDetails);
                 _context.SupplierOrders.Remove(order);
                 _context.SaveChanges();
             }
